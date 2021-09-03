@@ -1,1 +1,4 @@
-# programacion3
+# Repositorio de laboratorio y programación III
+
+## Programación: PHP
+## Laboratorio: Typescript
