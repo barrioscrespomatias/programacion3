@@ -55,7 +55,8 @@ class Empleado extends Persona
         $lenght = Count($idiomas);
         $i = 0;
         foreach ($idiomas as $idioma) {
-            $i < $lenght ? $salida .= $idioma . ', ' : $salida .= 'y ' . $idioma . '.';
+            $i < $lenght-1 ? $salida .= $idioma . ', ' : $salida .= 'y ' . $idioma . '.';
+            $i++;
         }
         return $salida;
     }
@@ -67,7 +68,7 @@ class Empleado extends Persona
     public function ToString()
     {       
         $salida = parent::ToString(); 
-        $salida .= $this->GetLegajo() . '-' . $this->GetSueldo() . '-' . $this->GetTurno() . '<br>';
+        $salida .= $this->GetLegajo() . '-' . $this->GetSueldo() . '-' . $this->GetTurno().PHP_EOL;
         return $salida;
         
     }

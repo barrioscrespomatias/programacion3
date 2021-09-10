@@ -15,28 +15,20 @@ $turno = isset($_POST['rdoTurno']) ? $_POST['rdoTurno'] : null;
 
 $newEmpleado = new Empleado($apellido,$nombre,$dni,$sexo,$legajo,$sueldo,$turno);
 
-
-/**
- * Guardar en archivo de texto
- */
-
-// if(file_exists('./archivos/empleados.txt'))
-// echo 'existe';
-// else
-// echo 'no existe';
-
- $file = fopen('./archivos/empleados.txt', "a");
+$file = fopen('./archivos/empleados.txt', "a");
+$save = fwrite($file, $newEmpleado->ToString());
 
 
-var_dump($file);
+?>
 
-$save = fwrite($file, 'algo guarda');
-echo 'llego!';
-var_dump($save);
-$result = $save !== false ? 'Se ha guardado con exito!' : 'Error al guardar!';
-echo $result;
+<!-- html incrustado en php -->
+<? if ($save !== false): ?>
+    <a href="./mostrar.php">Go to Mostrar.php</a>    
+<? endif; ?>
 
+<?php
 
+fclose($file);
 
 
 ?>
