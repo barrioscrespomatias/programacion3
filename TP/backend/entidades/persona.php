@@ -1,13 +1,17 @@
 <?php
 
-abstract class Persona{
+
+
+abstract class Persona
+{
 
     private $apellido;
     private $dni;
     private $nombre;
     private $sexo;
 
-    public function __construct($apellido, $nombre, $dni, $sexo){
+    public function __construct($apellido, $nombre, $dni, $sexo)
+    {
         $this->apellido = $apellido;
         $this->dni = $dni;
         $this->nombre = $nombre;
@@ -18,15 +22,17 @@ abstract class Persona{
      * GetApellido
      */
 
-     public function GetApellido():string{
-         return $this->apellido;
-     }
+    public function GetApellido()
+    {
+        return $this->apellido;
+    }
 
     /**
      * GetNombre
      */
 
-    public function GetNombre():string{
+    public function GetNombre()
+    {
         return $this->nombre;
     }
 
@@ -34,7 +40,8 @@ abstract class Persona{
      * GetDni
      */
 
-    public function GetDni():int{
+    public function GetDni()
+    {
         return $this->dni;
     }
 
@@ -42,25 +49,27 @@ abstract class Persona{
      * GetSexo
      */
 
-    public function GetSexo():string{
+    public function GetSexo()
+    {
         return $this->sexo;
     }
 
     /**
      * Hablar (abstracto). Retorna un string.
      */
-    
-     abstract function Hablar($idioma):string;
+
+    abstract function Hablar($idioma);
 
     /**
      * ToString. Retorna un string mostrando todos los datos de la persona, separados por un guión medio (-).
      */
 
-     public function ToString():string{
-         $personaToString = '';
-         return $personaToString.=GetApellido().'-'.GetNombre().'-'.GetDni().'-'.GetSexo().'-';         
-     }
+    public function ToString()
+    {
 
+        $personaToString = '';
+        $personaToString .= $this->GetApellido() . '-' . $this->GetNombre() . '-' . $this->GetDni() . '-' . $this->GetSexo() . '-';
+
+        return $personaToString;
+    }
 }
-
-?>
