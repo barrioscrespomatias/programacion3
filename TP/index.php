@@ -1,7 +1,8 @@
 <?php
 
-include_once './backend/fabrica.php';
-include_once './backend/entidades/empleado.php';
+require_once __DIR__ . './backend/interfaces.php';
+include_once __DIR__ . './backend/fabrica.php';
+include_once __DIR__ . './backend/entidades/empleado.php';
 
 //$apellido, $nombre, $dni, $sexo, $legajo, $sueldo, $turno
 
@@ -16,7 +17,7 @@ $fabrica->AgregarEmpleado($e1);
 $fabrica->AgregarEmpleado($e3);
 $fabrica->AgregarEmpleado($e2);
 $fabrica->AgregarEmpleado($e3);
-    $fabrica->EliminarEmpleado($e3);
+$fabrica->EliminarEmpleado($e3);
 
 // $idiomas = ['Ingles','Italiano','Frances'];
 // $idiomasHablados = $e1->Hablar($idiomas);

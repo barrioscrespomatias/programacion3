@@ -1,3 +1,4 @@
-Perez-Pablo-1000000-M-100-100-3
 Gomez-Matias-1000001-M-101-101-3
-Wos-Ito-1000002-M-103-103-3
+Caballo-Loco-1000002-F-102-102-2
+Perro-Tranquilo-1000003-M-103-103-1
+Pepito-Pistolero-1000005-F-105-105-3

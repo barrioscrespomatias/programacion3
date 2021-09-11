@@ -1,6 +1,8 @@
 <?php
 
-class Fabrica
+include_once __DIR__ . './interfaces.php';
+
+class Fabrica implements IArchivo
 {
 
     private $cantidadMaxima;
@@ -15,6 +17,19 @@ class Fabrica
     }
 
     /**
+     * 
+     */
+    public function SetCantidadMaxima($cantidad)
+    {
+        $this->cantidadMaxima = $cantidad;
+    }
+
+    public function GetCantidadEmpleados()
+    {
+        return Count($this->empleados);
+    }
+
+    /**
      * Agrega empleados si la cantidad es menor que la cantidad maxima admitia
      * Luego de agregar elimina los empleados repetidos.
      * Retorna un array sin los empleados repetidos ?
@@ -22,7 +37,7 @@ class Fabrica
     public function AgregarEmpleado($employee)
     {
         if (Count($this->empleados) < $this->cantidadMaxima) {
-            array_push($this->empleados, $employee);            
+            array_push($this->empleados, $employee);
         }
         //Revisar si esta linea funciona correctamente.
         $this->empleados =  $this->EliminarEmpleadosRepetidos();
@@ -46,20 +61,36 @@ class Fabrica
      * Sino, retorna -1
      */
 
-    private function BuscarEmpleadoPorDni($employee)
+    private function BuscarEmpleado($employee)
     {
         $key = -1;
         $i = 0;
-        foreach($this->empleados as $item)
-        {
-            if ($item->GetDni() === $employee->GetDni()) 
-            {
+        foreach ($this->empleados as $item) {
+            if (
+                $item->GetDni() === $employee->GetDni() &&
+                $item->GetApellido() === $employee->GetApellido() &&
+                $item->GetNombre() === $employee->GetNombre() &&
+                $item->GetTurno() === $employee->GetTurno()
+            ) {
                 $key = $i;
                 break;
             }
-            $i++;            
+            $i++;
         }
         return $key;
+    }
+    /**
+     * Retorna el empleado según el legajo pasado como parámetro
+     * Sino lo pudo encontrar, retorna null
+     */
+    public function BuscarEmpleadoPorLegajo($legajo)
+    {        
+        foreach ($this->empleados as $item) 
+        {
+            if ($item->GetLegajo() === $legajo)
+                return $item;
+        }
+        return null;
     }
 
     /**
@@ -69,7 +100,7 @@ class Fabrica
      */
     public function EliminarEmpleado($employee)
     {
-        $deleteKey = $this->BuscarEmpleadoPorDni($employee);
+        $deleteKey = $this->BuscarEmpleado($employee);
         unset($this->empleados[$deleteKey]);
     }
 
@@ -96,9 +127,9 @@ class Fabrica
 
     public function ToString()
     {
-
         //MOSTRAR EMPLEADOS SEPARADOS POR UN GUION MEDIO
-        $salida = "Bienvenidos a la fábrica " . $this->razonSocial . '<br>';
+        $salida="";
+        $salida .= "Bienvenidos a la fábrica " . $this->razonSocial . '<br>';
         $salida .= "**************************" . '<br><br>';
         $salida .= "Total de empleados " . Count($this->empleados) . '<br>';
         $salida .= "Total de sueldos " . $this->CalcularSueldos() . '<br>';
@@ -106,14 +137,42 @@ class Fabrica
         foreach ($this->empleados as $empleoyee) {
             $salida .= $empleoyee->ToString() . '<br>';
         }
-        
+
         return $salida;
     }
 
-
+    /**
+     * './archivos/empleados.txt
+     */
+    public function GuardarEnArchivo($nombreArchivo)
+    {
+        $file = fopen($nombreArchivo, "w");
+        foreach ($this->empleados as $employee) {
+            $save = fwrite($file, $employee->ToString());
+        }
+        fclose($file);
+    }
+    /**
+     * './archivos/empleados.txt'
+     */
     public function TraerDeArchivo($fileName)
     {
+        $file = fopen($fileName, "r");
+        while (!feof($file)) {
+            //Trim lo uso para eliminar espacios en blanco
+            $line = trim(fgets($file));
+            //6 es la cantidad de atributos que tiene el empleado (los - que tiene la frase.)
+            if (strlen($line) > 6) {
+                $employee = explode('\n\r', $line);
+                //el employee es un array con una sola posicion y contien un string.
+                //Ingresar a la primera posicion y hacer un explode para separar por '-'.
+                $data = explode('-', $employee[0]);
+                //Ahora data tiene la informacion del empleado en un array por cada vuelta que de el while.
+                $newEmpleado = new Empleado($data[0], $data[1], $data[2], $data[3], $data[4], $data[5], $data[6]);
+                $this->AgregarEmpleado($newEmpleado);
+            }
+        }
+
+        fclose($file);
     }
 }
-
-?>|
