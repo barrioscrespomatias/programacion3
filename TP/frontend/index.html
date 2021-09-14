@@ -9,16 +9,9 @@
     <!-- init bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/styles.css">
     <title>Formulario Alta de empleados</title>
-    <style>
-        body{
-            background-color: #F0F8FF;
-        }
-        .hidden{
-            display: none;
-        }
 
-    </style>
 </head>
 
 <body>
@@ -26,7 +19,7 @@
     <div class="container d-flex justify-content-lg-center">        
         
         <table class="center">
-            <form action="../backend/administracion.php" method="POST">
+            <form action="../backend/administracion.php" method="POST" id="altaForm">
                 <tbody>
                     <tr>
                         <td>
@@ -42,7 +35,7 @@
                     <tr>
                         <td class="d-flex justify-content-lg-between m-2">
                             <label for="txtDni" class="form-label">DNI:</label>
-                            <input type="number" class="form-control" id="txtDni" name="txtDni" min="1000000" max="55000000">
+                            <input type="number" class="form-control" id="txtDni" name="txtDni" min="1000000" max="55000000" required>
                             <span class="m-1 text-danger hidden" id="txtDniError">*</span>
                         </td>
                     </tr>
@@ -50,7 +43,7 @@
                     <tr>
                         <td class="d-flex justify-content-lg-between m-2">
                             <label for="txtApellido" class="form-label">Apellido:</label>
-                            <input type="text" class="form-control" id="txtApellido" name="txtApellido">
+                            <input type="text" class="form-control" id="txtApellido" name="txtApellido" required>
                             <span class="m-1 text-danger hidden" id="txtApellidoError">*</span>
                         </td>
                     </tr>
@@ -58,7 +51,7 @@
                     <tr>
                         <td class="d-flex justify-content-lg-between m-2">
                             <label for="txtNombre" class="form-label">Nombre:</label>
-                            <input type="text" class="form-control" id="txtNombre" name="txtNombre">
+                            <input type="text" class="form-control" id="txtNombre" name="txtNombre" required>
                             <span class="m-1 text-danger hidden" id="txtNombreError">*</span>
                         </td>
                     </tr>
@@ -88,7 +81,7 @@
                     <tr>
                         <td class="d-flex justify-content-lg-between m-2">
                             <label for="txtLegajo" class="form-label">Legajo:</label>
-                            <input type="number" class="form-control" id="txtLegajo" name="txtLegajo" min="100" max="550">
+                            <input type="number" class="form-control" id="txtLegajo" name="txtLegajo" min="100" max="550" required>
                             <span class="m-1 text-danger hidden" id="txtLegajoError">*</span>
                         </td>
                     </tr>
@@ -96,7 +89,7 @@
                     <tr>
                         <td class="d-flex justify-content-lg-between m-2">
                             <label for="txtSueldo" class="form-label">Sueldo:</label>
-                            <input type="number" class="form-control" id="txtSueldo" name="txtSueldo" min="8000" max="25000" step="500">
+                            <input type="number" class="form-control" id="txtSueldo" name="txtSueldo" min="8000" max="25000" step="500" required>
                             <span class="m-1 text-danger hidden" id="txtSueldoError">*</span>
                         </td>
                     </tr>
@@ -138,8 +131,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <button type="submit" onclick="AdministrarValidaciones()"
-                                class="btn btn-primary btn-sm float-end">Enviar</button>
+                            <button type="submit" onclick="AdministrarValidaciones()" class="btn btn-primary btn-sm float-end" id="btnEnviar">Enviar</button>
                         </td>
                     </tr>
                 </tbody>

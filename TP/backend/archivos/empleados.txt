@@ -1,4 +1,6 @@
 Gomez-Matias-1000001-M-101-101-3
 Caballo-Loco-1000002-F-102-102-2
 Perro-Tranquilo-1000003-M-103-103-1
-Pepito-Pistolero-1000005-F-105-105-3
+Buho-Tranquilo-1000004-M-104-104-2
+Colibrí-Rapidon-1000005-M-100-105-1
+Leon-De Cata-1000006-M-106-106-3

@@ -1,32 +1,12 @@
 "use strict";
 var AdministrarValidaciones = function () {
-    var dni = ValidarCamposVacios('txtDni');
-    var apellido = ValidarCamposVacios('txtApellido');
-    var nombre = ValidarCamposVacios('txtNombre');
-    var genero = ValidarCombo('cboSexo');
-    var legajo = ValidarCamposVacios('txtLegajo');
-    var turno = ObtenerTurnoSeleccionado();
-    var sueldo = ValidarCamposVacios('txtSueldo');
-    // validacion numero de dni
-    var dniInt = parseInt(document.getElementById('txtDni').value, 10);
-    var rangoDni = ValidarRangoNumerico(dniInt, 1000000, 55000000);
-    // validacion sueldo maximo
-    var sueldoMaximo = ObtenerSueldoMaximo();
-    var sueldoInt = parseInt(document.getElementById('txtSueldo').value, 10);
-    var rangoSueldo = ValidarRangoNumerico(sueldoInt, 8000, sueldoMaximo);
-    // validando los campos
-    var validado = dni != false &&
-        apellido != false &&
-        nombre != false &&
-        genero != false &&
-        legajo != false &&
-        turno != 'undefined' &&
-        sueldo != false &&
-        rangoDni !== false &&
-        rangoSueldo !== false
-        ? 'Todo ok!' : 'Revisar los campos';
-    console.log(validado);
-    alert(validado);
+    var validado = VerificarValidacionesLogin();
+    if (validado) {
+        console.log('Campos validados correctamente!');
+    }
+    else {
+        console.log('Error al validar los campos');
+    }
 };
 /**
  * Corrobora que un campo este vacio.
@@ -83,5 +63,48 @@ var ObtenerSueldoMaximo = function () {
             break;
     }
     return maxSalary;
+};
+// AdministrarSpanError(string, boolean): void. Es la encargada de, según el parámetro
+// booleano, ocultar o no al elemento cuyo id coincida con el parámetro de tipo string.
+var AdministrarSpanError = function (idSelect, esCorrecto) {
+    var selectValue = document.getElementById(idSelect);
+    var selectValueError = document.getElementById(idSelect + 'Error');
+    if (esCorrecto === false) {
+        selectValueError.style.display = 'block';
+    }
+};
+var VerificarValidacionesLogin = function () {
+    var dni = ValidarCamposVacios('txtDni');
+    AdministrarSpanError('txtDni', dni);
+    var apellido = ValidarCamposVacios('txtApellido');
+    AdministrarSpanError('txtApellido', apellido);
+    var nombre = ValidarCamposVacios('txtNombre');
+    AdministrarSpanError('txtNombre', nombre);
+    var genero = ValidarCombo('cboSexo');
+    AdministrarSpanError('cboSexo', genero);
+    var legajo = ValidarCamposVacios('txtLegajo');
+    AdministrarSpanError('txtLegajo', legajo);
+    var turno = ObtenerTurnoSeleccionado();
+    var sueldo = ValidarCamposVacios('txtSueldo');
+    AdministrarSpanError('txtSueldo', sueldo);
+    // validacion numero de dni
+    var dniInt = parseInt(document.getElementById('txtDni').value, 10);
+    var rangoDni = ValidarRangoNumerico(dniInt, 1000000, 55000000);
+    // validacion sueldo maximo
+    var sueldoMaximo = ObtenerSueldoMaximo();
+    var sueldoInt = parseInt(document.getElementById('txtSueldo').value, 10);
+    var rangoSueldo = ValidarRangoNumerico(sueldoInt, 8000, sueldoMaximo);
+    // validando los campos
+    var validado = dni !== false &&
+        apellido !== false &&
+        nombre !== false &&
+        genero !== false &&
+        legajo !== false &&
+        turno !== 'undefined' &&
+        sueldo !== false &&
+        rangoDni !== false &&
+        rangoSueldo !== false
+        ? true : false;
+    return validado;
 };
 //# sourceMappingURL=validaciones.js.map
