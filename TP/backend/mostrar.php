@@ -1,5 +1,6 @@
 <?php
 
+include_once __DIR__ . './validarSesion.php';
 include_once __DIR__ . './entidades/empleado.php';
 
 
@@ -83,6 +84,7 @@ $file = fopen('./archivos/empleados.txt', "r");
     
   </div>
   <a href="../frontend/index.html">Alta de empleados</a>
+  <a href="./cerrarSesion.php">Cerrar sesión</a>
 </body>
 
 </html>

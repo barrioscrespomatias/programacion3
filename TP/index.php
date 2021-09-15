@@ -1,5 +1,6 @@
 <?php
 
+include_once __DIR__ . './backend/validarSesion.php';
 require_once __DIR__ . './backend/interfaces.php';
 include_once __DIR__ . './backend/fabrica.php';
 include_once __DIR__ . './backend/entidades/empleado.php';
@@ -21,10 +22,10 @@ $fabrica->EliminarEmpleado($e3);
 
 // $idiomas = ['Ingles','Italiano','Frances'];
 // $idiomasHablados = $e1->Hablar($idiomas);
-
-
-
 echo $fabrica->ToString();
+?>
+<a href="./backend/cerrarSesion.php">Cerrar sesión</a>
+TP\backend\cerrarSesion.php
 
 
 

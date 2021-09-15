@@ -1,6 +1,7 @@
 <?php
 
 include_once __DIR__ . './interfaces.php';
+include_once __DIR__ . './entidades/empleado.php';
 
 class Fabrica implements IArchivo
 {
@@ -88,6 +89,20 @@ class Fabrica implements IArchivo
         foreach ($this->empleados as $item) 
         {
             if ($item->GetLegajo() === $legajo)
+                return $item;
+        }
+        return null;
+    }
+
+     /**
+     * Retorna el empleado según el legajo pasado como parámetro
+     * Sino lo pudo encontrar, retorna null
+     */
+    public function BuscarEmpleadoPorDniApellido($dni, $apellido)
+    {        
+        foreach ($this->empleados as $item) 
+        {
+            if ($item->GetDni() === $dni && $item->GetApellido() === $apellido)
                 return $item;
         }
         return null;
