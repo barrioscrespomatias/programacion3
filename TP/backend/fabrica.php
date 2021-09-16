@@ -122,13 +122,6 @@ class Fabrica implements IArchivo
     {
         $deleteKey = $this->BuscarEmpleado($employee);
         unset($this->empleados[$deleteKey]);
-        //Reorganiza las key numéricamente. ya que unset no modifica las key.
-        $this->empleados = array_values($this->empleados);
-        //Eliminar el archivo de la foto
-        if (file_exists($employee->GetPathFoto())) 
-        {
-            unlink($employee->GetPathFoto());
-        }
     }
 
     /**
