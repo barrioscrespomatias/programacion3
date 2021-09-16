@@ -30,6 +30,11 @@ class Fabrica implements IArchivo
         return Count($this->empleados);
     }
 
+    public function GetEmpleados()
+    {
+        return $this->empleados;
+    }
+
     /**
      * Agrega empleados si la cantidad es menor que la cantidad maxima admitia
      * Luego de agregar elimina los empleados repetidos.
@@ -168,22 +173,27 @@ class Fabrica implements IArchivo
         fclose($file);
     }
     /**
-     * './archivos/empleados.txt'
+     * Agrega los empleados a la instancia actual de la clase fábrica.
+     * Recibe como argumento el path del file de donde recupera los empleados.
      */
     public function TraerDeArchivo($fileName)
     {
         $file = fopen($fileName, "r");
+        $cantidadDeAtributos = 6;
         while (!feof($file)) {
             //Trim lo uso para eliminar espacios en blanco
             $line = trim(fgets($file));
             //6 es la cantidad de atributos que tiene el empleado (los - que tiene la frase.)
-            if (strlen($line) > 6) {
+            if (strlen($line) > $cantidadDeAtributos) {
                 $employee = explode('\n\r', $line);
                 //el employee es un array con una sola posicion y contien un string.
                 //Ingresar a la primera posicion y hacer un explode para separar por '-'.
                 $data = explode('-', $employee[0]);
                 //Ahora data tiene la informacion del empleado en un array por cada vuelta que de el while.
-                $newEmpleado = new Empleado($data[0], $data[1], $data[2], $data[3], $data[4], $data[5], $data[6]);
+                $newEmpleado = new Empleado($data[0], $data[1], $data[2], $data[3], $data[4], $data[5], $data[6]);                
+                //Se construye el path ya que el mismo tiene un guion medio entre el dni y el apellido
+                //El explode separa por guiones medios y me destruye el path de la foto.
+                $newEmpleado->SetPathFoto($data[7].'-'.$data[8]);
                 $this->AgregarEmpleado($newEmpleado);
             }
         }

@@ -65,6 +65,9 @@ if($file !== null)
 
 //Guardar en archivo
 $newEmpleado = new Empleado($apellido,$nombre,$dni,$sexo,$legajo,$sueldo,$turno);
+//Guardar el path del empleado
+$newEmpleado->SetPathFoto($destinoFinal);
+
 $fabrica->AgregarEmpleado($newEmpleado);
 $fabrica->GuardarEnArchivo('./archivos/empleados.txt');
 $cantidadActual = $fabrica->GetCantidadEmpleados();

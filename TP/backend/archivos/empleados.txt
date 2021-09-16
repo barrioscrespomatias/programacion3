@@ -1,6 +1,2 @@
-Caballo-Loco-1000002-F-102-102-2-
-Perro-Tranquilo-1000003-M-103-103-1-
-Buho-Tranquilo-1000004-M-104-104-2-
-Colibrí-Rapidon-1000005-M-100-105-1-
-Leon-De Cata-1000006-M-106-106-3-
-Corre-Caminos-1000001-F-101-101-1-
+Bugs-Bunny-1000000-M-100-100-1-./fotos/1000000-Bugs.jpg
+Pato-Lucas-1000001-M-101-101-3-./fotos/1000001-Pato.jpg
