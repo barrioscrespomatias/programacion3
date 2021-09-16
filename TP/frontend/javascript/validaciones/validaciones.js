@@ -87,6 +87,8 @@ var VerificarValidacionesLogin = function () {
     var turno = ObtenerTurnoSeleccionado();
     var sueldo = ValidarCamposVacios('txtSueldo');
     AdministrarSpanError('txtSueldo', sueldo);
+    var foto = ValidarCamposVacios('txtFoto');
+    AdministrarSpanError('txtFoto', foto);
     // validacion numero de dni
     var dniInt = parseInt(document.getElementById('txtDni').value, 10);
     var rangoDni = ValidarRangoNumerico(dniInt, 1000000, 55000000);
@@ -94,6 +96,8 @@ var VerificarValidacionesLogin = function () {
     var sueldoMaximo = ObtenerSueldoMaximo();
     var sueldoInt = parseInt(document.getElementById('txtSueldo').value, 10);
     var rangoSueldo = ValidarRangoNumerico(sueldoInt, 8000, sueldoMaximo);
+    if (foto === false)
+        alert('La foto no se ha cargado');
     // validando los campos
     var validado = dni !== false &&
         apellido !== false &&
@@ -103,7 +107,8 @@ var VerificarValidacionesLogin = function () {
         turno !== 'undefined' &&
         sueldo !== false &&
         rangoDni !== false &&
-        rangoSueldo !== false
+        rangoSueldo !== false &&
+        foto !== false
         ? true : false;
     return validado;
 };

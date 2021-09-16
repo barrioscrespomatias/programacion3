@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -19,7 +19,7 @@
     <div class="container d-flex justify-content-lg-center">        
         
         <table class="center">
-            <form action="../backend/administracion.php" method="POST" id="altaForm">
+            <form action="../backend/administracion.php" method="POST" id="altaForm" enctype="multipart/form-data" >
                 <tbody>
                     <tr>
                         <td>
@@ -116,6 +116,14 @@
                                 </label>
                             </div>
                             <span class="m-1 text-danger hidden" id="txtTurnoError">*</span>
+                        </td>
+                    </tr>
+                    <!-- Input File -->
+                    <tr>
+                        <td>
+                            <label for="txtFoto">Foto:</label>
+                            <input type="file" accept="image/*" id="txtFoto" name="txtFoto">
+                            <span class="m-1 text-danger hidden" id="txtFotoError">*</span>
                         </td>
                     </tr>
                     <tr>

@@ -9,6 +9,7 @@ class Empleado extends Persona
     protected $legajo;
     protected $sueldo;
     protected $turno;
+    protected $pathFoto;
 
     public function __construct($apellido, $nombre, $dni, $sexo, $legajo, $sueldo, $turno)
     {
@@ -42,6 +43,22 @@ class Empleado extends Persona
         return $this->turno;
     }
 
+    /**
+     * 
+     */
+    public function GetPathFoto()
+    {
+        return $this->pathFoto;
+    }
+
+        /**
+     * 
+     */
+    public function SetPathFoto($path)
+    {
+        $this->pathFoto = $path;
+    }
+
 
 
 
@@ -67,8 +84,8 @@ class Empleado extends Persona
      */
     public function ToString()
     {       
-        $salida = parent::ToString(); 
-        $salida .= $this->GetLegajo() . '-' . $this->GetSueldo() . '-' . $this->GetTurno().PHP_EOL;
+        $salida = parent::ToString();
+        $salida .= $this->GetLegajo() . '-' . $this->GetSueldo() . '-' . $this->GetTurno() . '-' . $this->GetPathFoto() . PHP_EOL;
         return $salida;
         
     }

@@ -106,6 +106,9 @@ const VerificarValidacionesLogin = (): boolean => {
     const sueldo = ValidarCamposVacios('txtSueldo');
     AdministrarSpanError('txtSueldo', sueldo);
 
+    const foto = ValidarCamposVacios('txtFoto');
+    AdministrarSpanError('txtFoto', foto);
+
     // validacion numero de dni
     const dniInt: number = parseInt((<HTMLInputElement>document.getElementById('txtDni')).value, 10);
     const rangoDni = ValidarRangoNumerico(dniInt, 1000000, 55000000);
@@ -116,7 +119,8 @@ const VerificarValidacionesLogin = (): boolean => {
     const sueldoInt: number = parseInt((<HTMLInputElement>document.getElementById('txtSueldo')).value, 10);
     const rangoSueldo = ValidarRangoNumerico(sueldoInt, 8000, sueldoMaximo);
 
-
+    if(foto===false)
+    alert('La foto no se ha cargado');
 
     // validando los campos
     const validado =
@@ -128,7 +132,8 @@ const VerificarValidacionesLogin = (): boolean => {
             turno !== 'undefined' &&
             sueldo !== false &&
             rangoDni !== false &&
-            rangoSueldo !== false
+            rangoSueldo !== false &&
+            foto !== false
             ? true : false;
 
     return validado;

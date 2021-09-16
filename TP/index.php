@@ -1,6 +1,15 @@
 <?php
 
-include_once __DIR__ . './backend/validarSesion.php';
+session_start();
+if (isset($_SESSION['DNIEmpleado'])) {
+    include_once __DIR__ . './backend/validarSesion.php';
+}
+else
+{
+    header('Location: ./frontend/login.html');
+}   
+
+
 require_once __DIR__ . './backend/interfaces.php';
 include_once __DIR__ . './backend/fabrica.php';
 include_once __DIR__ . './backend/entidades/empleado.php';
@@ -25,7 +34,7 @@ $fabrica->EliminarEmpleado($e3);
 echo $fabrica->ToString();
 ?>
 <a href="./backend/cerrarSesion.php">Cerrar sesión</a>
-TP\backend\cerrarSesion.php
+
 
 
 
