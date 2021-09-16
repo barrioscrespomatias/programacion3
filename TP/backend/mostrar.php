@@ -30,7 +30,7 @@ $fabrica->TraerDeArchivo('./archivos/empleados.txt');
     <table>
       <thead>
         <tr>
-          <th class="d-flex justify-content-lg-between mb-2">
+          <th class="">
             <h4>Info</h4>
           </th>
         </tr>
@@ -44,9 +44,18 @@ $fabrica->TraerDeArchivo('./archivos/empleados.txt');
         <!-- html incrustado en php -->
         <tbody>
           <tr>
-            <td class="d-flex justify-content-lg-between">
+            <!-- d-flex justify-content-lg-between -->
+            <td class="col-md-6">
               <span><?php echo $newEmpleado->ToString(); ?></span>
-              <a href="./eliminar.php?txtLegajo=<?php echo $newEmpleado->GetLegajo(); ?>">Delete</a>
+            <td>
+            <td class="col-md-2">
+              <img src="<?php echo $newEmpleado->GetPathFoto();?>" height="90" width="90">
+            </td>
+            <td class="col-md-2">
+              <a href="./eliminar.php?txtLegajo=<?php echo $newEmpleado->GetLegajo(); ?>">Delete</a>              
+            </td>
+            <td class="col-md-2">
+              <input type="button" onclick="AdministrarModificar(<?php echo $newEmpleado->GetDni();?>)" value="Modificar">
             </td>
           </tr>        
           <?php endforeach; ?>          
@@ -56,7 +65,13 @@ $fabrica->TraerDeArchivo('./archivos/empleados.txt');
             </td>
           </tr>
       </tbody>
-    </table>   
+    </table>
+
+    <!-- Agregar un formulario que contenga un input (type=hidden) para ser enviado hacia la página
+    index.php. Este hidden servirá para cambiar el funcionamiento del formulario de alta de empleados. -->
+    <form action="">
+      
+    </form>   
 
   </div>
   <a href="../frontend/index.html">Alta de empleados</a>
