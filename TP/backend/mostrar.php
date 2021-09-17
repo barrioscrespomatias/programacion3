@@ -44,11 +44,11 @@ $fabrica->TraerDeArchivo('./archivos/empleados.txt');
         <!-- html incrustado en php -->
         <tbody>
           <tr>
-            <td class="col-md-8">
+            <td class="col-md-6">
               <span><?php echo $newEmpleado->ToString(); ?></span>              
             </td>
             <td class="col-md-2">              
-              <img src="<?php echo $newEmpleado->GetPathFoto(); ?>" alt="img_empleado" height="90" width="90">
+              <img class="imgBackGroundTransparent" src="<?php echo $newEmpleado->GetPathFoto(); ?>" alt="img_empleado" height="90" width="90">
             </td>
             <td class="col-md-1">              
               <a href="./eliminar.php?txtLegajo=<?php echo $newEmpleado->GetLegajo(); ?>">Delete</a>
