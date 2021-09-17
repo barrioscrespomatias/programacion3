@@ -112,4 +112,9 @@ var VerificarValidacionesLogin = function () {
         ? true : false;
     return validado;
 };
+var AdministrarModificar = function (dniEmpleado) {
+    document.getElementById("inputHidden").value = dniEmpleado;
+    document.getElementById("formModificar").submit();
+    console.log(dniEmpleado);
+};
 //# sourceMappingURL=validaciones.js.map

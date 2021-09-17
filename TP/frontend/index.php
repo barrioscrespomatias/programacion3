@@ -1,3 +1,51 @@
+<?php
+session_start();
+include_once '../backend/fabrica.php';
+
+
+$dniEmpleadoModificar = isset($_POST['inputHidden']) ? $_POST['inputHidden'] : null;
+
+$titulo = 'Alta de empleados';
+$readOnly = '';
+$btn = 'Enviar';
+
+$dni = '';
+$apellido = '';
+$nombre = '';
+$sexo='';
+$legajo='';
+$sueldo='';
+$turno='';
+$hdnModificar = '';
+
+
+
+if($dniEmpleadoModificar!=null)
+{
+    $fabrica = new Fabrica('La fabriquita v.0.1.0');
+    $fabrica->SetCantidadMaxima(7);
+    $fabrica->TraerDeArchivo('../backend/archivos/empleados.txt');
+    $empleado = $fabrica->BuscarEmpleadoPorDni($dniEmpleadoModificar);
+
+    //parametros pagina modificar
+    $titulo = 'Modificar empleado';
+    $readOnly = 'readonly';
+    $btn = 'Modificar';
+    $hdnModificar = 'modificar';
+
+    $dni = $empleado->GetDni();
+    $apellido = $empleado->GetApellido();
+    $nombre = $empleado->GetNombre();
+    $sexo=$empleado->GetSexo();
+    $legajo=$empleado->GetLegajo();
+    $sueldo=$empleado->GetSueldo();
+    $turno=$empleado->GetTurno(); 
+    
+}
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 
@@ -15,7 +63,7 @@
 </head>
 
 <body>
-    <h2>Alta de empleados</h2>
+    <h2><?php echo $titulo; ?></h2>
     <div class="container d-flex justify-content-lg-center">        
         
         <table class="center">
@@ -35,7 +83,7 @@
                     <tr>
                         <td class="d-flex justify-content-lg-between m-2">
                             <label for="txtDni" class="form-label">DNI:</label>
-                            <input type="number" class="form-control" id="txtDni" name="txtDni" min="1000000" max="55000000" required>
+                            <input type="number" class="form-control" id="txtDni" name="txtDni" min="1000000" max="55000000" required value="<?php echo $dni ?>" <?php echo $readOnly ?>>
                             <span class="m-1 text-danger hidden" id="txtDniError">*</span>
                         </td>
                     </tr>
@@ -43,7 +91,7 @@
                     <tr>
                         <td class="d-flex justify-content-lg-between m-2">
                             <label for="txtApellido" class="form-label">Apellido:</label>
-                            <input type="text" class="form-control" id="txtApellido" name="txtApellido" required>
+                            <input type="text" class="form-control" id="txtApellido" name="txtApellido" required value="<?php echo $apellido; ?>">
                             <span class="m-1 text-danger hidden" id="txtApellidoError">*</span>
                         </td>
                     </tr>
@@ -51,7 +99,7 @@
                     <tr>
                         <td class="d-flex justify-content-lg-between m-2">
                             <label for="txtNombre" class="form-label">Nombre:</label>
-                            <input type="text" class="form-control" id="txtNombre" name="txtNombre" required>
+                            <input type="text" class="form-control" id="txtNombre" name="txtNombre" required value="<?php echo $nombre; ?>">
                             <span class="m-1 text-danger hidden" id="txtNombreError">*</span>
                         </td>
                     </tr>
@@ -81,7 +129,7 @@
                     <tr>
                         <td class="d-flex justify-content-lg-between m-2">
                             <label for="txtLegajo" class="form-label">Legajo:</label>
-                            <input type="number" class="form-control" id="txtLegajo" name="txtLegajo" min="100" max="550" required>
+                            <input type="number" class="form-control" id="txtLegajo" name="txtLegajo" min="100" max="550" required value="<?php echo $legajo; ?>" <?php echo $readOnly ?>>
                             <span class="m-1 text-danger hidden" id="txtLegajoError">*</span>
                         </td>
                     </tr>
@@ -89,7 +137,7 @@
                     <tr>
                         <td class="d-flex justify-content-lg-between m-2">
                             <label for="txtSueldo" class="form-label">Sueldo:</label>
-                            <input type="number" class="form-control" id="txtSueldo" name="txtSueldo" min="8000" max="25000" step="500" required>
+                            <input type="number" class="form-control" id="txtSueldo" name="txtSueldo" min="8000" max="25000" step="500" required value="<?php echo $sueldo; ?>">
                             <span class="m-1 text-danger hidden" id="txtSueldoError">*</span>
                         </td>
                     </tr>
@@ -139,13 +187,22 @@
                     </tr>
                     <tr>
                         <td>
-                            <button type="submit" onclick="AdministrarValidaciones()" class="btn btn-primary btn-sm float-end" id="btnEnviar">Enviar</button>
+                            <button type="submit" onclick="AdministrarValidaciones()" class="btn btn-primary btn-sm float-end" id="btnEnviar"><?php echo $btn; ?></button>
+                        </td>
+                    </tr>
+                    <!-- Input Hidden -->
+                    <tr>
+                        <td>
+                            <input type="hidden" name="hdnModificar" id="hdnModificar" value="<?php echo $hdnModificar ?>">                     
                         </td>
                     </tr>
                 </tbody>
             </form>
         </table>
     </div>
+
+    
+
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">

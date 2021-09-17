@@ -109,6 +109,9 @@ const VerificarValidacionesLogin = (): boolean => {
     const foto = ValidarCamposVacios('txtFoto');
     AdministrarSpanError('txtFoto', foto);
 
+    // const hdmModificar = (<HTMLInputElement>document.getElementById("inputHidden")).value;
+
+
     // validacion numero de dni
     const dniInt: number = parseInt((<HTMLInputElement>document.getElementById('txtDni')).value, 10);
     const rangoDni = ValidarRangoNumerico(dniInt, 1000000, 55000000);
@@ -138,4 +141,10 @@ const VerificarValidacionesLogin = (): boolean => {
 
     return validado;
 
+}
+
+const AdministrarModificar = (dniEmpleado: string) => {
+    (<HTMLInputElement>document.getElementById("inputHidden")).value = dniEmpleado;
+    (<HTMLFormElement>document.getElementById("formModificar")).submit();
+    console.log(dniEmpleado);
 }

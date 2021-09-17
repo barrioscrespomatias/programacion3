@@ -113,12 +113,26 @@ class Fabrica implements IArchivo
         return null;
     }
 
+     /**
+     * Retorna el empleado según el legajo pasado como parámetro
+     * Sino lo pudo encontrar, retorna null
+     */
+    public function BuscarEmpleadoPorDni($dni)
+    {        
+        foreach ($this->empleados as $item) 
+        {
+            if ($item->GetDni() === $dni)
+                return $item;
+        }
+        return null;
+    }
+
     /**
      * Recibe un empleado y lo elimina del array mediante unset
      * Unset: Trabaja mediante key. Es necesario pasarle la key del empleado.
      * Si el dni del empleado coincide con el dni de alguno de los empleados, tomar la key.
      */
-    public function EliminarEmpleado($employee)
+    public function EliminarEmpleado($employee):bool
     {
         $deleteKey = $this->BuscarEmpleado($employee);
         unset($this->empleados[$deleteKey]);
@@ -128,7 +142,9 @@ class Fabrica implements IArchivo
 
         //Eliminar la foto
         if(file_exists($employee->GetPathFoto()))
-            unlink($employee->GetPathFoto());
+            $eliminado = unlink($employee->GetPathFoto());
+
+        return $eliminado;
     }
 
     /**

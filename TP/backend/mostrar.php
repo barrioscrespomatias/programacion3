@@ -54,7 +54,7 @@ $fabrica->TraerDeArchivo('./archivos/empleados.txt');
               <a href="./eliminar.php?txtLegajo=<?php echo $newEmpleado->GetLegajo(); ?>">Delete</a>
             </td>
             <td class="col-md-1">
-              <input type="button" value="Modificar">
+              <input type="button" value="Modificar" onclick="AdministrarModificar(<?php echo $newEmpleado->GetDni();?>)">
             </td>
           </tr>        
           <?php endforeach; ?>          
@@ -64,11 +64,18 @@ $fabrica->TraerDeArchivo('./archivos/empleados.txt');
             </td>
           </tr> -->
       </tbody>
-    </table>   
+    </table>
+
+    <form action="../frontend/index.php" method="POST" id="formModificar">
+      <input type="hidden" name="inputHidden" id="inputHidden">
+    </form>
+
 
   </div>
-  <a href="../frontend/index.html">Alta de empleados</a>
+  <a href="../frontend/index.php">Alta de empleados</a>
   <a href="./cerrarSesion.php">Cerrar sesión</a>
+
+<script src="../frontend/javascript/validaciones/validaciones.js"></script>
 </body>
 </html>
 <!-- end thml -->

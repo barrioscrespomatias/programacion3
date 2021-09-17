@@ -17,8 +17,9 @@ $nombre = isset($_POST['txtNombre']) ? $_POST['txtNombre'] : null;
 $dni = isset($_POST['txtDni']) ? $_POST['txtDni'] : null;
 $sexo = isset($_POST['cboSexo']) ? $_POST['cboSexo'] : null;
 $legajo = isset($_POST['txtLegajo']) ? $_POST['txtLegajo'] : null;
-$sueldo = isset($_POST['txtLegajo']) ? $_POST['txtLegajo'] : null;
+$sueldo = isset($_POST['txtSueldo']) ? $_POST['txtSueldo'] : null;
 $turno = isset($_POST['rdoTurno']) ? $_POST['rdoTurno'] : null;
+$hdnModificar = isset($_POST['hdnModificar']) ? $_POST['hdnModificar'] : null;
 
 //Imagen
 $upload = false;
@@ -31,6 +32,10 @@ $tmpName = isset($_FILES['txtFoto']) ? $_FILES['txtFoto']['tmp_name'] : null;
 $destinoAux = './fotos/' . $_FILES['txtFoto']['name'];
 $destinoFinal = './fotos/' . "$dni-$apellido.".pathinfo($destinoAux,PATHINFO_EXTENSION);
 
+if ($hdnModificar === 'modificar') {
+    $empleadoModificar = $fabrica->BuscarEmpleadoPorDni($dni);
+    $modificado = $fabrica->EliminarEmpleado($empleadoModificar);
+}
 
 if($file !== null)
 {
@@ -63,8 +68,9 @@ if($file !== null)
 }
 
 
-//Guardar en archivo
-$newEmpleado = new Empleado($apellido,$nombre,$dni,$sexo,$legajo,$sueldo,$turno);
+
+//Agregar empleado en archivo
+$newEmpleado = new Empleado($apellido, $nombre, $dni, $sexo, $legajo, $sueldo, $turno);
 //Guardar el path del empleado
 $newEmpleado->SetPathFoto($destinoFinal);
 
@@ -72,15 +78,22 @@ $fabrica->AgregarEmpleado($newEmpleado);
 $fabrica->GuardarEnArchivo('./archivos/empleados.txt');
 $cantidadActual = $fabrica->GetCantidadEmpleados();
 
-if ($cantidadActual > $cantidadPrevia)
+if ($cantidadActual > $cantidadPrevia) 
 {
     echo '<h3>Empleado agregado con éxito!</h3>';
     echo '<a href="./mostrar.php">Go to Mostrar.php</a>';
+}
+else if($modificado) 
+{
+    echo '<h3>Empleado modificado con éxito!</h3>';
+    echo '<a href="./mostrar.php">Go to Mostrar.php</a>';    
 }
 else
 {
     echo '<h3>Ocurrió un problema al agregar al empleado</h3>';
     echo '<a href="../frontend/index.html">Go to Index.html</a>';
 }
+
+
 
 ?>
