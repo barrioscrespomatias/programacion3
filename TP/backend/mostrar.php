@@ -27,34 +27,42 @@ $fabrica->TraerDeArchivo('./archivos/empleados.txt');
 <body class="m-3">
   <h2>Listado de empleados</h2>
   <div class="container">
-    <table>
+    <table class="col-sm-12">
       <thead>
         <tr>
-          <th class="d-flex justify-content-lg-between mb-2">
+          <th class="">
             <h4>Info</h4>
           </th>
         </tr>
-        <tr>
+        <!-- <tr>
           <td>
             <hr>
           </td>
-        </tr>
+        </tr> -->
       </thead>
           <?php foreach ($fabrica->GetEmpleados() as $newEmpleado) : ?>
         <!-- html incrustado en php -->
         <tbody>
           <tr>
-            <td class="d-flex justify-content-lg-between">
-              <span><?php echo $newEmpleado->ToString(); ?></span>
+            <td class="col-md-8">
+              <span><?php echo $newEmpleado->ToString(); ?></span>              
+            </td>
+            <td class="col-md-2">              
+              <img src="<?php echo $newEmpleado->GetPathFoto(); ?>" alt="img_empleado" height="90" width="90">
+            </td>
+            <td class="col-md-1">              
               <a href="./eliminar.php?txtLegajo=<?php echo $newEmpleado->GetLegajo(); ?>">Delete</a>
+            </td>
+            <td class="col-md-1">
+              <input type="button" value="Modificar">
             </td>
           </tr>        
           <?php endforeach; ?>          
-          <tr>
+          <!-- <tr>
             <td>
               <hr>
             </td>
-          </tr>
+          </tr> -->
       </tbody>
     </table>   
 
