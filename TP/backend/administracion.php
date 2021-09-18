@@ -37,6 +37,11 @@ if ($hdnModificar === 'modificar') {
     $modificado = $fabrica->EliminarEmpleado($empleadoModificar);
 }
 
+//AJAX
+$opcion = isset($_POST['opcion']) ? $_POST['opcion'] : null;
+
+
+
 if($file !== null)
 {
     if(file_exists($destinoFinal))
@@ -60,7 +65,13 @@ if($file !== null)
                     case 'png':
                     case 'jpeg':
                         if(move_uploaded_file($tmpName,$destinoFinal))
-                        $upload = true;
+                        {
+                            $upload = true;
+                            if($opcion === 'subirFotoAjax')
+                            {
+                                echo 'Foto subida con éxito!';
+                            }
+                        }
                 }
             }
         }
@@ -78,20 +89,27 @@ $fabrica->AgregarEmpleado($newEmpleado);
 $fabrica->GuardarEnArchivo('./archivos/empleados.txt');
 $cantidadActual = $fabrica->GetCantidadEmpleados();
 
-if ($cantidadActual > $cantidadPrevia) 
+if($opcion === null)
 {
-    echo '<h3>Empleado agregado con éxito!</h3>';
-    echo '<a href="./mostrar.php">Go to Mostrar.php</a>';
+    if ($cantidadActual > $cantidadPrevia) 
+    {
+        echo '<h3>Empleado agregado con éxito!</h3>';
+        echo '<a href="./mostrar.php">Go to Mostrar.php</a>';
+    }
+    else if($modificado) 
+    {
+        echo '<h3>Empleado modificado con éxito!</h3>';
+        echo '<a href="./mostrar.php">Go to Mostrar.php</a>';    
+    }
+    else
+    {
+        echo '<h3>Ocurrió un problema al agregar al empleado</h3>';
+        echo '<a href="../frontend/index.html">Go to Index.html</a>';
+    }
 }
-else if($modificado) 
+else if($opcion === 'subirEmpleadoAjax')
 {
-    echo '<h3>Empleado modificado con éxito!</h3>';
-    echo '<a href="./mostrar.php">Go to Mostrar.php</a>';    
-}
-else
-{
-    echo '<h3>Ocurrió un problema al agregar al empleado</h3>';
-    echo '<a href="../frontend/index.html">Go to Index.html</a>';
+    echo 'empleado cargado con éxito!';
 }
 
 

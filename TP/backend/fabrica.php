@@ -134,6 +134,7 @@ class Fabrica implements IArchivo
      */
     public function EliminarEmpleado($employee):bool
     {
+        $eliminado = false;
         $deleteKey = $this->BuscarEmpleado($employee);
         unset($this->empleados[$deleteKey]);
 

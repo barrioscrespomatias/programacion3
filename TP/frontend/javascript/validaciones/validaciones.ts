@@ -1,11 +1,28 @@
+window.onload = function() {
+    
+    CargarFormulario();
+    CargarTablaEmpleados();
+  };
 
-const AdministrarValidaciones = () => {
+
+const AdministrarValidaciones = (comunicacion:string) => {
     const validado = VerificarValidacionesLogin();
     if (validado) {
         console.log('Campos validados correctamente!');
     }
     else {
         console.log('Error al validar los campos');
+    }
+
+    switch(comunicacion)
+    {
+        case 'ajaxArchivos':
+            //método para comunicarse mediante ajaxArchivos
+            AgregarEmpleadoAjax();
+            break;
+        case '':
+            //método para comunicarse mediante ajax            
+            break;
     }
 
 }
@@ -148,3 +165,77 @@ const AdministrarModificar = (dniEmpleado: string) => {
     (<HTMLFormElement>document.getElementById("formModificar")).submit();
     console.log(dniEmpleado);
 }
+
+/**
+ * Métodos ajaxArchivos
+ */
+
+const CargarFormulario = () =>{
+    const xmlHttp : XMLHttpRequest = new XMLHttpRequest(); 
+    xmlHttp.open('POST', '../backend/administracionAjax.php', true);
+    xmlHttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
+    xmlHttp.send('formulario=traerFormulario');
+
+    xmlHttp.onreadystatechange = () =>{
+        if(xmlHttp.readyState == 4 && xmlHttp.status == 200)
+        {
+            (<HTMLDivElement>document.getElementById('divFormlario')).innerHTML = xmlHttp.responseText;
+        }
+    }
+}
+
+const CargarTablaEmpleados = () =>{
+    const xmlHttp : XMLHttpRequest = new XMLHttpRequest(); 
+    xmlHttp.open('POST', '../backend/administracionAjax.php', true);
+    xmlHttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
+    xmlHttp.send('tablaEmpleados=traerTablaEmpleados');
+
+    xmlHttp.onreadystatechange = () =>{
+        if(xmlHttp.readyState == 4 && xmlHttp.status == 200)
+        {
+            (<HTMLDivElement>document.getElementById('divTablaEmpleados')).innerHTML = xmlHttp.responseText;
+        }
+    }
+}
+
+const AgregarEmpleadoAjax = () =>
+{
+    const xmlHttp : XMLHttpRequest = new XMLHttpRequest();
+
+    const dni: string = (<HTMLInputElement>document.getElementById('txtDni')).value;
+    const apellido: string = (<HTMLInputElement>document.getElementById('txtApellido')).value;
+    const nombre: string = (<HTMLInputElement>document.getElementById('txtNombre')).value;
+    const sexo: string = (<HTMLInputElement>document.getElementById('cboSexo')).value;
+    const legajo: string = (<HTMLInputElement>document.getElementById('txtLegajo')).value;
+    const sueldo: string = (<HTMLInputElement>document.getElementById('txtSueldo')).value;    
+    const turno: string = ObtenerTurnoSeleccionado();    
+    const file: any = (<HTMLInputElement>document.getElementById('txtFoto'));
+
+    // Archivo subido por Ajax
+    const form : FormData = new FormData();
+    form.append('txtDni', dni);
+    form.append('txtApellido', apellido);
+    form.append('txtNombre', nombre);
+    form.append('cboSexo', sexo);
+    form.append('txtLegajo', legajo);
+    form.append('txtSueldo', sueldo);
+    form.append('rdoTurno', turno);
+    form.append('txtFoto', file.files[0]);
+
+    form.append('opcion','subirEmpleadoAjax');
+    xmlHttp.open('POST','../backend/administracion.php',true);
+    xmlHttp.setRequestHeader('enctype','multipart/form-data');
+    xmlHttp.send(form);
+    xmlHttp.onreadystatechange = () =>{
+        if(xmlHttp.readyState == 4 && xmlHttp.status == 200)
+        {
+            //Response text desde backend
+            console.log(xmlHttp.responseText);
+            CargarTablaEmpleados();
+        }
+    }
+}
+
+
+
+

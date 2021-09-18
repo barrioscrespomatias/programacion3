@@ -1,11 +1,24 @@
 "use strict";
-var AdministrarValidaciones = function () {
+window.onload = function () {
+    CargarFormulario();
+    CargarTablaEmpleados();
+};
+var AdministrarValidaciones = function (comunicacion) {
     var validado = VerificarValidacionesLogin();
     if (validado) {
         console.log('Campos validados correctamente!');
     }
     else {
         console.log('Error al validar los campos');
+    }
+    switch (comunicacion) {
+        case 'ajaxArchivos':
+            //método para comunicarse mediante ajaxArchivos
+            AgregarEmpleadoAjax();
+            break;
+        case '':
+            //método para comunicarse mediante ajax            
+            break;
     }
 };
 /**
@@ -89,6 +102,7 @@ var VerificarValidacionesLogin = function () {
     AdministrarSpanError('txtSueldo', sueldo);
     var foto = ValidarCamposVacios('txtFoto');
     AdministrarSpanError('txtFoto', foto);
+    // const hdmModificar = (<HTMLInputElement>document.getElementById("inputHidden")).value;
     // validacion numero de dni
     var dniInt = parseInt(document.getElementById('txtDni').value, 10);
     var rangoDni = ValidarRangoNumerico(dniInt, 1000000, 55000000);
@@ -116,5 +130,62 @@ var AdministrarModificar = function (dniEmpleado) {
     document.getElementById("inputHidden").value = dniEmpleado;
     document.getElementById("formModificar").submit();
     console.log(dniEmpleado);
+};
+/**
+ * Métodos ajaxArchivos
+ */
+var CargarFormulario = function () {
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open('POST', '../backend/administracionAjax.php', true);
+    xmlHttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
+    xmlHttp.send('formulario=traerFormulario');
+    xmlHttp.onreadystatechange = function () {
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+            document.getElementById('divFormlario').innerHTML = xmlHttp.responseText;
+        }
+    };
+};
+var CargarTablaEmpleados = function () {
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open('POST', '../backend/administracionAjax.php', true);
+    xmlHttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
+    xmlHttp.send('tablaEmpleados=traerTablaEmpleados');
+    xmlHttp.onreadystatechange = function () {
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+            document.getElementById('divTablaEmpleados').innerHTML = xmlHttp.responseText;
+        }
+    };
+};
+var AgregarEmpleadoAjax = function () {
+    var xmlHttp = new XMLHttpRequest();
+    var dni = document.getElementById('txtDni').value;
+    var apellido = document.getElementById('txtApellido').value;
+    var nombre = document.getElementById('txtNombre').value;
+    var sexo = document.getElementById('cboSexo').value;
+    var legajo = document.getElementById('txtLegajo').value;
+    var sueldo = document.getElementById('txtSueldo').value;
+    var turno = ObtenerTurnoSeleccionado();
+    var file = document.getElementById('txtFoto');
+    // Archivo subido por Ajax
+    var form = new FormData();
+    form.append('txtDni', dni);
+    form.append('txtApellido', apellido);
+    form.append('txtNombre', nombre);
+    form.append('cboSexo', sexo);
+    form.append('txtLegajo', legajo);
+    form.append('txtSueldo', sueldo);
+    form.append('rdoTurno', turno);
+    form.append('txtFoto', file.files[0]);
+    form.append('opcion', 'subirEmpleadoAjax');
+    xmlHttp.open('POST', '../backend/administracion.php', true);
+    xmlHttp.setRequestHeader('enctype', 'multipart/form-data');
+    xmlHttp.send(form);
+    xmlHttp.onreadystatechange = function () {
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+            //Response text desde backend
+            console.log(xmlHttp.responseText);
+            CargarTablaEmpleados();
+        }
+    };
 };
 //# sourceMappingURL=validaciones.js.map
