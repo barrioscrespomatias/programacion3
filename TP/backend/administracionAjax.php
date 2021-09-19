@@ -231,10 +231,10 @@ if($tablaEmpleados == 'traerTablaEmpleados')
                         <img class="imgBackGroundTransparent" src="../backend/<?php echo $newEmpleado->GetPathFoto(); ?>" alt="img_empleado" height="90" width="90">
                     </td>
                     <td class="col-md-1">              
-                        <a href="./eliminar.php?txtLegajo=<?php echo $newEmpleado->GetLegajo(); ?>">Delete</a>
+                        <a class="btn btn-danger" href="./eliminar.php?txtLegajo=<?php echo $newEmpleado->GetLegajo(); ?>">Delete</a>
                     </td>
                     <td class="col-md-1">
-                        <input type="button" value="Modificar" onclick="AdministrarModificar(<?php echo $newEmpleado->GetDni();?>)">
+                        <input type="button" class = "btn btn-primary" value="Modificar" onclick="AdministrarModificar(<?php echo $newEmpleado->GetDni();?>)">
                     </td>
                     </tr>        
                     <?php endforeach; ?>          
