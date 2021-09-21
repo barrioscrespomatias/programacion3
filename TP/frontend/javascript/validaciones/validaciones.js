@@ -149,6 +149,17 @@ var AdministrarModificar = function (dniEmpleado) {
         CargarFormulario(dniEmpleado);
     }
 };
+var AdministrarEliminar = function (legajo) {
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open('POST', '../backend/eliminar.php', true);
+    xmlHttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
+    xmlHttp.send("txtLegajo=" + legajo + "&opcion=eliminarAjax");
+    xmlHttp.onreadystatechange = function () {
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+            document.getElementById('divTablaEmpleados').innerHTML = xmlHttp.responseText;
+        }
+    };
+};
 /**
  * Métodos ajaxArchivos
  */

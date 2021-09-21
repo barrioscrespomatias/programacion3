@@ -188,6 +188,23 @@ const AdministrarModificar = (dniEmpleado: string) => {
 
 
     }
+}
+
+const AdministrarEliminar = (legajo:string) =>
+{
+    const xmlHttp : XMLHttpRequest = new XMLHttpRequest(); 
+    xmlHttp.open('POST', '../backend/eliminar.php', true);
+    xmlHttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
+    xmlHttp.send(`txtLegajo=${legajo}&opcion=eliminarAjax`);
+
+    xmlHttp.onreadystatechange = () =>{
+        if(xmlHttp.readyState == 4 && xmlHttp.status == 200)
+        {
+            (<HTMLDivElement>document.getElementById('divTablaEmpleados')).innerHTML = xmlHttp.responseText;
+        }
+    }
+
+
 
 
 }
