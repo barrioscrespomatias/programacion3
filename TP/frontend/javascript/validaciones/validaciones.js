@@ -4,6 +4,7 @@ window.onload = function () {
     CargarTablaEmpleados();
 };
 var AdministrarValidaciones = function (comunicacion) {
+    console.log(comunicacion);
     var validado = VerificarValidacionesLogin();
     if (validado) {
         console.log('Campos validados correctamente!');
@@ -12,12 +13,13 @@ var AdministrarValidaciones = function (comunicacion) {
         console.log('Error al validar los campos');
     }
     switch (comunicacion) {
-        case 'ajaxArchivos':
+        case 'alta':
             //método para comunicarse mediante ajaxArchivos
-            AgregarEmpleadoAjax();
+            AgregarEmpleadoAjax('alta');
             break;
-        case '':
-            //método para comunicarse mediante ajax            
+        case 'modificar':
+            //método para comunicarse mediante ajax   
+            AgregarEmpleadoAjax('modificar');
             break;
     }
 };
@@ -127,18 +129,37 @@ var VerificarValidacionesLogin = function () {
     return validado;
 };
 var AdministrarModificar = function (dniEmpleado) {
-    document.getElementById("inputHidden").value = dniEmpleado;
-    document.getElementById("formModificar").submit();
-    console.log(dniEmpleado);
+    // <form action="../frontend/index.php" method="POST" id="formModificar">
+    //     <input type="hidden" name="inputHiddenAjax" id="inputHiddenAjax">
+    // </form>
+    var inputHiddenValue = document.getElementById("inputHiddenAjax").value;
+    //Para el index sin ajax
+    if (inputHiddenValue !== 'true') {
+        document.getElementById("inputHidden").value = dniEmpleado;
+        document.getElementById("formModificar").submit();
+        console.log(dniEmpleado);
+    }
+    else //Con ajax
+     {
+        // enviar hacia administracionAjax.php inputHidden=dniEmpleadoModificar
+        //Se envia el dni del empleado a ser modificado.
+        //De esta manera desde administracionAjax se cargan los datos del empleado en el formulario
+        // $dniEmpleadoModificar = isset($_POST['inputHidden']) ? $_POST['inputHidden'] : null;
+        // formulario= 'traerFormulario';
+        CargarFormulario(dniEmpleado);
+    }
 };
 /**
  * Métodos ajaxArchivos
  */
-var CargarFormulario = function () {
+var CargarFormulario = function (dniModificar) {
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.open('POST', '../backend/administracionAjax.php', true);
     xmlHttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
-    xmlHttp.send('formulario=traerFormulario');
+    if (dniModificar !== undefined)
+        xmlHttp.send("inputHidden=" + dniModificar + "&formulario=traerFormulario");
+    else
+        xmlHttp.send('formulario=traerFormulario');
     xmlHttp.onreadystatechange = function () {
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
             document.getElementById('divFormlario').innerHTML = xmlHttp.responseText;
@@ -156,7 +177,7 @@ var CargarTablaEmpleados = function () {
         }
     };
 };
-var AgregarEmpleadoAjax = function () {
+var AgregarEmpleadoAjax = function (opcion) {
     var xmlHttp = new XMLHttpRequest();
     var dni = document.getElementById('txtDni').value;
     var apellido = document.getElementById('txtApellido').value;
@@ -176,7 +197,13 @@ var AgregarEmpleadoAjax = function () {
     form.append('txtSueldo', sueldo);
     form.append('rdoTurno', turno);
     form.append('txtFoto', file.files[0]);
-    form.append('opcion', 'subirEmpleadoAjax');
+    if (opcion === 'alta') {
+        form.append('opcion', 'altaAjax');
+    }
+    else {
+        form.append('opcion', 'modficarAjax');
+        form.append('hdnModificar', 'modificar');
+    }
     xmlHttp.open('POST', '../backend/administracion.php', true);
     xmlHttp.setRequestHeader('enctype', 'multipart/form-data');
     xmlHttp.send(form);

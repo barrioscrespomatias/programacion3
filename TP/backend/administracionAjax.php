@@ -5,10 +5,19 @@ require_once __DIR__ . './fabrica.php';
 
 
 $dniEmpleadoModificar = isset($_POST['inputHidden']) ? $_POST['inputHidden'] : null;
+if($dniEmpleadoModificar !== null)
+{
+    $op = 'modificar';    
+}
+else
+$op='alta';
+$opcion = '';
 
 $titulo = 'Alta de empleados';
 $readOnly = '';
 $btn = 'Enviar';
+// $opcion = isset($_POST['opcion']) ? $_POST['opcion'] : null;
+
 
 $dni = '';
 $apellido = '';
@@ -173,12 +182,13 @@ if($fomulario == 'traerFormulario')
                         <!-- Buttons -->
                         <tr>
                             <td>
-                                <input class="btn btn-danger float-end btn-sm w-25" type="reset" value="Limpiar">
+                                <input class="btn btn-danger float-end btn-sm" type="reset" value="Limpiar">
                             </td>
                         </tr>
                         <tr>
                             <td>
-                                <button type="submit" onclick="AdministrarValidaciones('ajaxArchivos')" class="btn btn-primary btn-sm float-end" id="btnEnviar"><?php echo $btn; ?></button>
+                                
+                                <button type="submit" onclick="AdministrarValidaciones('<?php echo $op; ?>')" class="btn btn-primary btn-sm float-end" id="btnEnviar"><?php echo $btn; ?></button>
                             </td>
                         </tr>
                         <!-- Input Hidden -->
@@ -193,9 +203,9 @@ if($fomulario == 'traerFormulario')
         <!-- </div> -->
             
     <?php
-    $output = ob_get_clean();
+    $form = ob_get_clean();
     ob_flush();
-    echo $output;
+    echo $form;
 }
 
 
@@ -231,87 +241,82 @@ if($tablaEmpleados == 'traerTablaEmpleados')
                         <img class="imgBackGroundTransparent" src="../backend/<?php echo $newEmpleado->GetPathFoto(); ?>" alt="img_empleado" height="90" width="90">
                     </td>
                     <td class="col-md-1">              
-                        <a class="btn btn-danger" href="./eliminar.php?txtLegajo=<?php echo $newEmpleado->GetLegajo(); ?>">Delete</a>
+                        <a class="btn btn-danger btn-sm" href="./eliminar.php?txtLegajo=<?php echo $newEmpleado->GetLegajo(); ?>">Delete</a>
                     </td>
                     <td class="col-md-1">
-                        <input type="button" class = "btn btn-primary" value="Modificar" onclick="AdministrarModificar(<?php echo $newEmpleado->GetDni();?>)">
+                        <input type="button" class = "btn btn-primary btn-sm" value="Modificar" onclick="AdministrarModificar(<?php echo $newEmpleado->GetDni();?>)">
                     </td>
                     </tr>        
                     <?php endforeach; ?>          
+                    <tr>
+                        <td>
+                            <input type="hidden" name="inputHiddenAjax" id="inputHiddenAjax" value="true">            
+                        </td>
+                    </tr>
                     <!-- <tr>
-                    <td>
-                        <hr>
-                    </td>
+                        <td>
+                            <hr>
+                        </td>
                     </tr> -->
                 </tbody>
-            </table>
-
-            <form action="../frontend/index.php" method="POST" id="formModificar">
-                <input type="hidden" name="inputHidden" id="inputHidden">
-            </form>
+            </table>            
     <!-- </div> -->
     
 
     <?php
-    $output = ob_get_clean();
+    $table = ob_get_clean();
     ob_flush();
-    echo $output;
+    echo $table;
 }
 
-
-die();
-
-// EMPLEADO
-//$apellido, $nombre, $dni, $sexo, $legajo, $sueldo, $turno
-$apellido = isset($_POST['txtApellido']) ? $_POST['txtApellido'] : null;
-$nombre = isset($_POST['txtNombre']) ? $_POST['txtNombre'] : null;
-$dni = isset($_POST['txtDni']) ? $_POST['txtDni'] : null;
-$sexo = isset($_POST['cboSexo']) ? $_POST['cboSexo'] : null;
-$legajo = isset($_POST['txtLegajo']) ? $_POST['txtLegajo'] : null;
-$sueldo = isset($_POST['txtSueldo']) ? $_POST['txtSueldo'] : null;
-$turno = isset($_POST['rdoTurno']) ? $_POST['rdoTurno'] : null;
-$hdnModificar = isset($_POST['hdnModificar']) ? $_POST['hdnModificar'] : null;
-
-//Imagen
-$upload = false;
-$esImage = false;
-$extension = "";
+// die();
 $file = isset($_FILES['txtFoto']) ? $_FILES['txtFoto'] : null;
-$tmpName = isset($_FILES['txtFoto']) ? $_FILES['txtFoto']['tmp_name'] : null;
+if ($file !== null) {
+    // EMPLEADO
+    //$apellido, $nombre, $dni, $sexo, $legajo, $sueldo, $turno
+    $apellido = isset($_POST['txtApellido']) ? $_POST['txtApellido'] : null;
+    $nombre = isset($_POST['txtNombre']) ? $_POST['txtNombre'] : null;
+    $dni = isset($_POST['txtDni']) ? $_POST['txtDni'] : null;
+    $sexo = isset($_POST['cboSexo']) ? $_POST['cboSexo'] : null;
+    $legajo = isset($_POST['txtLegajo']) ? $_POST['txtLegajo'] : null;
+    $sueldo = isset($_POST['txtSueldo']) ? $_POST['txtSueldo'] : null;
+    $turno = isset($_POST['rdoTurno']) ? $_POST['rdoTurno'] : null;
+    $hdnModificar = isset($_POST['hdnModificar']) ? $_POST['hdnModificar'] : null;
 
-//Destino auxiliar
-$destinoAux = './fotos/' . $_FILES['txtFoto']['name'];
-$destinoFinal = './fotos/' . "$dni-$apellido.".pathinfo($destinoAux,PATHINFO_EXTENSION);
+    //Imagen
+    $upload = false;
+    $esImage = false;
+    $extension = "";
+    $file = isset($_FILES['txtFoto']) ? $_FILES['txtFoto'] : null;
+    $tmpName = isset($_FILES['txtFoto']) ? $_FILES['txtFoto']['tmp_name'] : null;
 
-if ($hdnModificar === 'modificar') {
-    $empleadoModificar = $fabrica->BuscarEmpleadoPorDni($dni);
-    $modificado = $fabrica->EliminarEmpleado($empleadoModificar);
-}
+    //Destino auxiliar
+    $destinoAux = './fotos/' . $_FILES['txtFoto']['name'];
+    $destinoFinal = './fotos/' . "$dni-$apellido." . pathinfo($destinoAux, PATHINFO_EXTENSION);
 
-if($file !== null)
-{
-    if(file_exists($destinoFinal))
-    {
-        //el archivo ya existe
+    if ($hdnModificar === 'modificar') {
+        $empleadoModificar = $fabrica->BuscarEmpleadoPorDni($dni);
+        $modificado = $fabrica->EliminarEmpleado($empleadoModificar);
     }
-    else
-    {
-        //genero validaciones
-        if($file['size']<1000000)
-        {
-            $esImage = getimagesize($file['tmp_name']);
-            if($esImage)
-            {
-                $extension=pathinfo($destinoAux, PATHINFO_EXTENSION);
-                switch($extension)
-                {
-                    case 'jpg':
-                    case 'bmp':
-                    case 'gif':
-                    case 'png':
-                    case 'jpeg':
-                        if(move_uploaded_file($tmpName,$destinoFinal))
-                        $upload = true;
+
+    if ($file !== null) {
+        if (file_exists($destinoFinal)) {
+            //el archivo ya existe
+        } else {
+            //genero validaciones
+            if ($file['size'] < 1000000) {
+                $esImage = getimagesize($file['tmp_name']);
+                if ($esImage) {
+                    $extension = pathinfo($destinoAux, PATHINFO_EXTENSION);
+                    switch ($extension) {
+                        case 'jpg':
+                        case 'bmp':
+                        case 'gif':
+                        case 'png':
+                        case 'jpeg':
+                            if (move_uploaded_file($tmpName, $destinoFinal))
+                                $upload = true;
+                    }
                 }
             }
         }
@@ -319,31 +324,39 @@ if($file !== null)
 }
 
 
+switch ($opcion) {
+    case 'modificar':
+    case 'alta':
 
-//Agregar empleado en archivo
-$newEmpleado = new Empleado($apellido, $nombre, $dni, $sexo, $legajo, $sueldo, $turno);
-//Guardar el path del empleado
-$newEmpleado->SetPathFoto($destinoFinal);
+        //Agregar empleado en archivo
+        $newEmpleado = new Empleado($apellido, $nombre, $dni, $sexo, $legajo, $sueldo, $turno);
+        //Guardar el path del empleado
+        $newEmpleado->SetPathFoto($destinoFinal);
 
-$fabrica->AgregarEmpleado($newEmpleado);
-$fabrica->GuardarEnArchivo('./archivos/empleados.txt');
-$cantidadActual = $fabrica->GetCantidadEmpleados();
+        $fabrica->AgregarEmpleado($newEmpleado);
+        $fabrica->GuardarEnArchivo('./archivos/empleados.txt');
+        $cantidadActual = $fabrica->GetCantidadEmpleados();
 
-if ($cantidadActual > $cantidadPrevia) 
-{
-    echo '<h3>Empleado agregado con éxito!</h3>';
-    echo '<a href="./mostrar.php">Go to Mostrar.php</a>';
+        if($opcion == 'modificar')
+        {
+            echo $table;
+        }
+        else
+        {
+            if ($cantidadActual > $cantidadPrevia) {
+                echo '<h3>Empleado agregado con éxito!</h3>';
+                echo '<a href="./mostrar.php">Go to Mostrar.php</a>';
+            } else if ($modificado) {
+                echo '<h3>Empleado modificado con éxito!</h3>';
+                echo '<a href="./mostrar.php">Go to Mostrar.php</a>';
+            } else {
+                echo '<h3>Ocurrió un problema al agregar al empleado</h3>';
+                echo '<a href="../frontend/index.html">Go to Index.html</a>';
+            }
+        }
+
 }
-else if($modificado) 
-{
-    echo '<h3>Empleado modificado con éxito!</h3>';
-    echo '<a href="./mostrar.php">Go to Mostrar.php</a>';    
-}
-else
-{
-    echo '<h3>Ocurrió un problema al agregar al empleado</h3>';
-    echo '<a href="../frontend/index.html">Go to Index.html</a>';
-}
+
 
 
 

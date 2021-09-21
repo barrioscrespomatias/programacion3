@@ -107,9 +107,12 @@ if($opcion === null)
         echo '<a href="../frontend/index.html">Go to Index.html</a>';
     }
 }
-else if($opcion === 'subirEmpleadoAjax')
+else if($opcion === 'altaAjax')
 {
     echo 'empleado cargado con éxito!';
+}
+else{
+    echo 'empleado modificado con éxito!';
 }
 
 

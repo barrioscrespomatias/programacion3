@@ -6,6 +6,7 @@ window.onload = function() {
 
 
 const AdministrarValidaciones = (comunicacion:string) => {
+    console.log(comunicacion);
     const validado = VerificarValidacionesLogin();
     if (validado) {
         console.log('Campos validados correctamente!');
@@ -16,12 +17,13 @@ const AdministrarValidaciones = (comunicacion:string) => {
 
     switch(comunicacion)
     {
-        case 'ajaxArchivos':
+        case 'alta':
             //método para comunicarse mediante ajaxArchivos
-            AgregarEmpleadoAjax();
+            AgregarEmpleadoAjax('alta');
             break;
-        case '':
-            //método para comunicarse mediante ajax            
+        case 'modificar':
+            //método para comunicarse mediante ajax   
+            AgregarEmpleadoAjax('modificar');
             break;
     }
 
@@ -161,20 +163,50 @@ const VerificarValidacionesLogin = (): boolean => {
 }
 
 const AdministrarModificar = (dniEmpleado: string) => {
-    (<HTMLInputElement>document.getElementById("inputHidden")).value = dniEmpleado;
-    (<HTMLFormElement>document.getElementById("formModificar")).submit();
-    console.log(dniEmpleado);
+    // <form action="../frontend/index.php" method="POST" id="formModificar">
+    //     <input type="hidden" name="inputHiddenAjax" id="inputHiddenAjax">
+    // </form>
+
+    const inputHiddenValue = (<HTMLInputElement>document.getElementById("inputHiddenAjax")).value;
+
+    //Para el index sin ajax
+    if(inputHiddenValue !== 'true')
+    {
+        (<HTMLInputElement>document.getElementById("inputHidden")).value = dniEmpleado;
+        (<HTMLFormElement>document.getElementById("formModificar")).submit();
+        console.log(dniEmpleado);
+    }
+    else //Con ajax
+    {
+        // enviar hacia administracionAjax.php inputHidden=dniEmpleadoModificar
+        //Se envia el dni del empleado a ser modificado.
+        //De esta manera desde administracionAjax se cargan los datos del empleado en el formulario
+        // $dniEmpleadoModificar = isset($_POST['inputHidden']) ? $_POST['inputHidden'] : null;
+        // formulario= 'traerFormulario';
+        
+        CargarFormulario(dniEmpleado); 
+
+
+    }
+
+
 }
 
 /**
  * Métodos ajaxArchivos
  */
 
-const CargarFormulario = () =>{
+const CargarFormulario = (dniModificar?:string) =>{
     const xmlHttp : XMLHttpRequest = new XMLHttpRequest(); 
     xmlHttp.open('POST', '../backend/administracionAjax.php', true);
     xmlHttp.setRequestHeader('content-type', 'application/x-www-form-urlencoded');
+    
+
+    if(dniModificar !== undefined)
+    xmlHttp.send(`inputHidden=${dniModificar}&formulario=traerFormulario`);
+    else
     xmlHttp.send('formulario=traerFormulario');
+    
 
     xmlHttp.onreadystatechange = () =>{
         if(xmlHttp.readyState == 4 && xmlHttp.status == 200)
@@ -198,7 +230,7 @@ const CargarTablaEmpleados = () =>{
     }
 }
 
-const AgregarEmpleadoAjax = () =>
+const AgregarEmpleadoAjax = (opcion?:string) =>
 {
     const xmlHttp : XMLHttpRequest = new XMLHttpRequest();
 
@@ -222,7 +254,17 @@ const AgregarEmpleadoAjax = () =>
     form.append('rdoTurno', turno);
     form.append('txtFoto', file.files[0]);
 
-    form.append('opcion','subirEmpleadoAjax');
+    if(opcion === 'alta')
+    {
+        form.append('opcion','altaAjax');
+    }
+    else
+    {
+        form.append('opcion','modficarAjax');
+        form.append('hdnModificar','modificar');
+    }    
+    
+    
     xmlHttp.open('POST','../backend/administracion.php',true);
     xmlHttp.setRequestHeader('enctype','multipart/form-data');
     xmlHttp.send(form);
