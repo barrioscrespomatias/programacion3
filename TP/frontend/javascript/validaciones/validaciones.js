@@ -1,4 +1,10 @@
 "use strict";
+/**
+ * Carga la página incial:
+ * Formulario
+ * Tabla de empleados
+ * Links
+ */
 window.onload = function () {
     CargarFormulario();
     CargarTablaEmpleados();
@@ -13,13 +19,13 @@ var AdministrarValidaciones = function (comunicacion) {
         console.log('Error al validar los campos');
     }
     switch (comunicacion) {
-        case 'alta':
+        case "alta":
             //método para comunicarse mediante ajaxArchivos
-            AgregarEmpleadoAjax('alta');
+            AgregarEmpleadoAjax("alta");
             break;
-        case 'modificar':
+        case "modificar":
             //método para comunicarse mediante ajax   
-            AgregarEmpleadoAjax('modificar');
+            AgregarEmpleadoAjax("modificar");
             break;
     }
 };
@@ -104,7 +110,6 @@ var VerificarValidacionesLogin = function () {
     AdministrarSpanError('txtSueldo', sueldo);
     var foto = ValidarCamposVacios('txtFoto');
     AdministrarSpanError('txtFoto', foto);
-    // const hdmModificar = (<HTMLInputElement>document.getElementById("inputHidden")).value;
     // validacion numero de dni
     var dniInt = parseInt(document.getElementById('txtDni').value, 10);
     var rangoDni = ValidarRangoNumerico(dniInt, 1000000, 55000000);
@@ -128,12 +133,14 @@ var VerificarValidacionesLogin = function () {
         ? true : false;
     return validado;
 };
+/**
+ * Combina funcionalidad de ajax y sincrónico.
+ * Si el valor del inputHidden es true, la comunicación será vía ajax.
+ * @param dniEmpleado dni del empleado a ser modificado
+ */
 var AdministrarModificar = function (dniEmpleado) {
-    // <form action="../frontend/index.php" method="POST" id="formModificar">
-    //     <input type="hidden" name="inputHiddenAjax" id="inputHiddenAjax">
-    // </form>
-    var inputHiddenValue = document.getElementById("inputHiddenAjax").value;
-    //Para el index sin ajax
+    var inputHiddenValue = document.getElementById("inputHidden").value;
+    //Para el index.php sin ajax
     if (inputHiddenValue !== 'true') {
         document.getElementById("inputHidden").value = dniEmpleado;
         document.getElementById("formModificar").submit();
@@ -141,14 +148,13 @@ var AdministrarModificar = function (dniEmpleado) {
     }
     else //Con ajax
      {
-        // enviar hacia administracionAjax.php inputHidden=dniEmpleadoModificar
-        //Se envia el dni del empleado a ser modificado.
-        //De esta manera desde administracionAjax se cargan los datos del empleado en el formulario
-        // $dniEmpleadoModificar = isset($_POST['inputHidden']) ? $_POST['inputHidden'] : null;
-        // formulario= 'traerFormulario';
         CargarFormulario(dniEmpleado);
     }
 };
+/**
+ * Método utilizado para eliminar vía ajax
+ * @param legajo legajo a eliminar
+ */
 var AdministrarEliminar = function (legajo) {
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.open('POST', '../backend/eliminar.php', true);
@@ -188,6 +194,10 @@ var CargarTablaEmpleados = function () {
         }
     };
 };
+/**
+ * Método utilizado para agregar empleados mediante ajax. (No lo utiliza index.php)
+ * @param opcion permite saber qué tipo de accion se realiza modificar o alta.
+ */
 var AgregarEmpleadoAjax = function (opcion) {
     var xmlHttp = new XMLHttpRequest();
     var dni = document.getElementById('txtDni').value;
@@ -208,11 +218,16 @@ var AgregarEmpleadoAjax = function (opcion) {
     form.append('txtSueldo', sueldo);
     form.append('rdoTurno', turno);
     form.append('txtFoto', file.files[0]);
+    /**
+     *las variables 'opcion' simplemente hacer que desde el backend se retorne un mensaje ante cada situación.
+     * Mensaje para modificar o mensaje para un alta.
+     * Si es utilizado el hdnModificar
+     */
     if (opcion === 'alta') {
         form.append('opcion', 'altaAjax');
     }
     else {
-        form.append('opcion', 'modficarAjax');
+        form.append('opcion', 'modificarAjax');
         form.append('hdnModificar', 'modificar');
     }
     xmlHttp.open('POST', '../backend/administracion.php', true);
@@ -221,6 +236,7 @@ var AgregarEmpleadoAjax = function (opcion) {
     xmlHttp.onreadystatechange = function () {
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
             //Response text desde backend
+            //Acá se carga la respuesta por el alta o  la modificación.
             console.log(xmlHttp.responseText);
             CargarTablaEmpleados();
             CargarFormulario();

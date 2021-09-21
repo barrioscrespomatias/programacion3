@@ -224,4 +224,213 @@ class Fabrica implements IArchivo
 
         fclose($file);
     }
+
+    public function CargarTablaEmpleados()
+    {
+        ob_start();    
+        ?>   
+    
+        <h2>Listado de empleados</h2>            
+            <table>
+                <thead>
+                <tr>
+                    <th class="">
+                    <h4>Info</h4>
+                    </th>
+                </tr>
+                <!-- <tr>
+                    <td>
+                    <hr>
+                    </td>
+                </tr> -->
+                </thead>
+                    <?php foreach ($this->GetEmpleados() as $newEmpleado) : ?>
+                <!-- html incrustado en php -->
+                <tbody>
+                    <tr>
+                    <td class="col-md-6">
+                        <span><?php echo $newEmpleado->ToString(); ?></span>              
+                    </td>
+                    <td class="col-md-2">              
+                        <img class="imgBackGroundTransparent" src="../backend/<?php echo $newEmpleado->GetPathFoto(); ?>" alt="img_empleado" height="90" width="90">
+                    </td>
+                    <td class="col-md-1">              
+                        
+                        <input type="button" class = "btn btn-danger btn-sm" value="Eliminar" onclick="AdministrarEliminar(<?php echo $newEmpleado->GetLegajo();?>)">
+                    </td>
+                    <td class="col-md-1">
+                        <input type="button" class = "btn btn-primary btn-sm" value="Modificar" onclick="AdministrarModificar(<?php echo $newEmpleado->GetDni();?>)">
+                    </td>
+                    </tr>        
+                    <?php endforeach; ?>          
+                    <tr>
+                        <td>
+                            <input type="hidden" name="inputHidden" id="inputHidden" value="true">            
+                        </td>
+                    </tr>
+                    <!-- <tr>
+                        <td>
+                            <hr>
+                        </td>
+                    </tr> -->
+                </tbody>
+            </table> 
+
+            <?php
+            $table = ob_get_clean();
+            ob_flush();
+
+            return $table;
+    }
+
+    public function CargarFormulario($readOnly,$dni,$apellido,$nombre,$legajo,$sueldo,$btn,$opcion, $hdnModificar)
+    {
+        if($hdnModificar == 'modificar')
+        $opcion = 'modificar';
+        else
+        $opcion = 'alta';
+
+        ob_start();
+        ?>
+            <!-- <div class="col-sm-4"> -->
+                <table class="center">                
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <h2>Datos personales</h2>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <hr>
+                                </td>
+                            </tr>
+                            <!-- DNI -->
+                            <tr>
+                                <td class="d-flex justify-content-lg-between m-2">
+                                    <label for="txtDni" class="form-label">DNI:</label>
+                                    <input type="number" class="form-control" id="txtDni" name="txtDni" min="1000000" max="55000000" required value="<?php echo $dni ?>" <?php echo $readOnly ?>>
+                                    <span class="m-1 text-danger hidden" id="txtDniError">*</span>
+                                </td>
+                            </tr>
+                            <!-- Apellido -->
+                            <tr>
+                                <td class="d-flex justify-content-lg-between m-2">
+                                    <label for="txtApellido" class="form-label">Apellido:</label>
+                                    <input type="text" class="form-control" id="txtApellido" name="txtApellido" required value="<?php echo $apellido; ?>">
+                                    <span class="m-1 text-danger hidden" id="txtApellidoError">*</span>
+                                </td>
+                            </tr>
+                            <!-- Nombre -->
+                            <tr>
+                                <td class="d-flex justify-content-lg-between m-2">
+                                    <label for="txtNombre" class="form-label">Nombre:</label>
+                                    <input type="text" class="form-control" id="txtNombre" name="txtNombre" required value="<?php echo $nombre; ?>">
+                                    <span class="m-1 text-danger hidden" id="txtNombreError">*</span>
+                                </td>
+                            </tr>
+                            <!-- Genero -->
+                            <tr>
+                                <td class="d-flex justify-content-lg-between m-2">
+                                    <label for="cboSexo" class="form-label">Sexo:</label>
+                                    <select name="cboSexo" id="cboSexo" class="form-control">
+                                        <option value="--" selected="--">Seleccione</option>
+                                        <option value="M">Masculino</option>
+                                        <option value="F">Femenino</option>
+                                    </select>
+                                    <span class="m-1 text-danger hidden" id="cboSexoError">*</span>
+                                </td>
+                            </tr>                    
+                            <tr>
+                                <td>
+                                    <h4>Datos Laborales</h4>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <hr>
+                                </td>
+                            </tr>
+                            <!-- Legajo -->
+                            <tr>
+                                <td class="d-flex justify-content-lg-between m-2">
+                                    <label for="txtLegajo" class="form-label">Legajo:</label>
+                                    <input type="number" class="form-control" id="txtLegajo" name="txtLegajo" min="100" max="550" required value="<?php echo $legajo; ?>" <?php echo $readOnly ?>>
+                                    <span class="m-1 text-danger hidden" id="txtLegajoError">*</span>
+                                </td>
+                            </tr>
+                            <!-- Sueldo -->
+                            <tr>
+                                <td class="d-flex justify-content-lg-between m-2">
+                                    <label for="txtSueldo" class="form-label">Sueldo:</label>
+                                    <input type="number" class="form-control" id="txtSueldo" name="txtSueldo" min="8000" max="25000" step="500" required value="<?php echo $sueldo; ?>">
+                                    <span class="m-1 text-danger hidden" id="txtSueldoError">*</span>
+                                </td>
+                            </tr>
+                            <!-- Turno -->
+                            <tr>
+                                <td class="d-flex justify-content-lg-between m-2">
+                                    <label for="rdoTurno" class="form-label">Turno:</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="rdoTurno" value="1" checked>
+                                        <label class="form-check-label" for="mañana">
+                                            Mañana
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="rdoTurno" value="2">
+                                        <label class="form-check-label" for="tarde">
+                                            Tarde
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="rdoTurno" value="3">
+                                        <label class="form-check-label" for="noche">
+                                            Noche
+                                        </label>
+                                    </div>
+                                    <span class="m-1 text-danger hidden" id="txtTurnoError">*</span>
+                                </td>
+                            </tr>
+                            <!-- Input File -->
+                            <tr>
+                                <td>
+                                    <label for="txtFoto">Foto:</label>
+                                    <input type="file" accept="image/*" id="txtFoto" name="txtFoto">
+                                    <span class="m-1 text-danger hidden" id="txtFotoError">*</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <hr>
+                                </td>
+                            </tr>
+                            <!-- Buttons -->
+                            <tr>
+                                <td>
+                                    <input class="btn btn-danger float-end btn-sm" type="reset" value="Limpiar">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    
+                                    <button type="submit" onclick="AdministrarValidaciones('<?php echo $opcion; ?>')" class="btn btn-primary btn-sm float-end" id="btnEnviar"><?php echo $btn; ?></button>
+                                </td>
+                            </tr>
+                            <!-- Input Hidden -->
+                            <tr>
+                                <td>
+                                    <input type="hidden" name="hdnModificar" id="hdnModificar" value="<?php echo $hdnModificar ?>">                     
+                                </td>
+                            </tr>
+                        </tbody>                
+                </table>
+            
+            <!-- </div> -->
+                
+        <?php
+        $form = ob_get_clean();
+        ob_flush();
+        return $form;
+    }
 }

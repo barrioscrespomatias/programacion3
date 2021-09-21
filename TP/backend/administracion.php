@@ -32,6 +32,8 @@ $tmpName = isset($_FILES['txtFoto']) ? $_FILES['txtFoto']['tmp_name'] : null;
 $destinoAux = './fotos/' . $_FILES['txtFoto']['name'];
 $destinoFinal = './fotos/' . "$dni-$apellido.".pathinfo($destinoAux,PATHINFO_EXTENSION);
 
+//utiliza el parámetro cargado en javascript (ajax)
+// sino el parámetro es pasado desde un inputHidden.
 if ($hdnModificar === 'modificar') {
     $empleadoModificar = $fabrica->BuscarEmpleadoPorDni($dni);
     $modificado = $fabrica->EliminarEmpleado($empleadoModificar);
@@ -39,7 +41,6 @@ if ($hdnModificar === 'modificar') {
 
 //AJAX
 $opcion = isset($_POST['opcion']) ? $_POST['opcion'] : null;
-
 
 
 if($file !== null)
@@ -107,11 +108,12 @@ if($opcion === null)
         echo '<a href="../frontend/index.html">Go to Index.html</a>';
     }
 }
-else if($opcion === 'altaAjax')
+else if($opcion === 'altaAjax') 
 {
     echo 'empleado cargado con éxito!';
 }
-else{
+else if ($opcion === 'modificarAjax') 
+{
     echo 'empleado modificado con éxito!';
 }
 

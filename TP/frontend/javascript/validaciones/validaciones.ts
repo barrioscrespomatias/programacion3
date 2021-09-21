@@ -1,3 +1,9 @@
+/**
+ * Carga la página incial:
+ * Formulario
+ * Tabla de empleados
+ * Links
+ */
 window.onload = function() {
     
     CargarFormulario();
@@ -17,13 +23,13 @@ const AdministrarValidaciones = (comunicacion:string) => {
 
     switch(comunicacion)
     {
-        case 'alta':
+        case "alta":
             //método para comunicarse mediante ajaxArchivos
-            AgregarEmpleadoAjax('alta');
+            AgregarEmpleadoAjax("alta");
             break;
-        case 'modificar':
+        case "modificar":            
             //método para comunicarse mediante ajax   
-            AgregarEmpleadoAjax('modificar');
+            AgregarEmpleadoAjax("modificar");            
             break;
     }
 
@@ -126,11 +132,8 @@ const VerificarValidacionesLogin = (): boolean => {
     AdministrarSpanError('txtSueldo', sueldo);
 
     const foto = ValidarCamposVacios('txtFoto');
-    AdministrarSpanError('txtFoto', foto);
-
-    // const hdmModificar = (<HTMLInputElement>document.getElementById("inputHidden")).value;
-
-
+    AdministrarSpanError('txtFoto', foto); 
+    
     // validacion numero de dni
     const dniInt: number = parseInt((<HTMLInputElement>document.getElementById('txtDni')).value, 10);
     const rangoDni = ValidarRangoNumerico(dniInt, 1000000, 55000000);
@@ -161,15 +164,16 @@ const VerificarValidacionesLogin = (): boolean => {
     return validado;
 
 }
-
+/**
+ * Combina funcionalidad de ajax y sincrónico.
+ * Si el valor del inputHidden es true, la comunicación será vía ajax.
+ * @param dniEmpleado dni del empleado a ser modificado
+ */
 const AdministrarModificar = (dniEmpleado: string) => {
-    // <form action="../frontend/index.php" method="POST" id="formModificar">
-    //     <input type="hidden" name="inputHiddenAjax" id="inputHiddenAjax">
-    // </form>
 
-    const inputHiddenValue = (<HTMLInputElement>document.getElementById("inputHiddenAjax")).value;
+    const inputHiddenValue : string | undefined = (<HTMLInputElement>document.getElementById("inputHidden")).value;
 
-    //Para el index sin ajax
+    //Para el index.php sin ajax
     if(inputHiddenValue !== 'true')
     {
         (<HTMLInputElement>document.getElementById("inputHidden")).value = dniEmpleado;
@@ -177,19 +181,14 @@ const AdministrarModificar = (dniEmpleado: string) => {
         console.log(dniEmpleado);
     }
     else //Con ajax
-    {
-        // enviar hacia administracionAjax.php inputHidden=dniEmpleadoModificar
-        //Se envia el dni del empleado a ser modificado.
-        //De esta manera desde administracionAjax se cargan los datos del empleado en el formulario
-        // $dniEmpleadoModificar = isset($_POST['inputHidden']) ? $_POST['inputHidden'] : null;
-        // formulario= 'traerFormulario';
-        
+    {        
         CargarFormulario(dniEmpleado); 
-
-
     }
 }
-
+/**
+ * Método utilizado para eliminar vía ajax
+ * @param legajo legajo a eliminar
+ */
 const AdministrarEliminar = (legajo:string) =>
 {
     const xmlHttp : XMLHttpRequest = new XMLHttpRequest(); 
@@ -203,9 +202,6 @@ const AdministrarEliminar = (legajo:string) =>
             (<HTMLDivElement>document.getElementById('divTablaEmpleados')).innerHTML = xmlHttp.responseText;
         }
     }
-
-
-
 
 }
 
@@ -246,7 +242,10 @@ const CargarTablaEmpleados = () =>{
         }
     }
 }
-
+/**
+ * Método utilizado para agregar empleados mediante ajax. (No lo utiliza index.php)
+ * @param opcion permite saber qué tipo de accion se realiza modificar o alta.
+ */
 const AgregarEmpleadoAjax = (opcion?:string) =>
 {
     const xmlHttp : XMLHttpRequest = new XMLHttpRequest();
@@ -271,13 +270,19 @@ const AgregarEmpleadoAjax = (opcion?:string) =>
     form.append('rdoTurno', turno);
     form.append('txtFoto', file.files[0]);
 
+    /**
+     *las variables 'opcion' simplemente hacer que desde el backend se retorne un mensaje ante cada situación. 
+     * Mensaje para modificar o mensaje para un alta.
+     * Si es utilizado el hdnModificar
+     */
+
     if(opcion === 'alta')
     {
         form.append('opcion','altaAjax');
     }
     else
     {
-        form.append('opcion','modficarAjax');
+        form.append('opcion','modificarAjax');
         form.append('hdnModificar','modificar');
     }    
     
@@ -289,9 +294,10 @@ const AgregarEmpleadoAjax = (opcion?:string) =>
         if(xmlHttp.readyState == 4 && xmlHttp.status == 200)
         {
             //Response text desde backend
+            //Acá se carga la respuesta por el alta o  la modificación.
             console.log(xmlHttp.responseText);
             CargarTablaEmpleados();
-            CargarFormulario(); 
+            CargarFormulario();             
         }
     }
 }

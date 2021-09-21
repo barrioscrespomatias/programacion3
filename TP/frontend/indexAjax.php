@@ -2,9 +2,7 @@
 session_start();
 include_once '../backend/fabrica.php';
 
-
 $dniEmpleadoModificar = isset($_POST['inputHidden']) ? $_POST['inputHidden'] : null;
-
 $titulo = 'Barrios Crespo Matías';
 
 
