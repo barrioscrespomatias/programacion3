@@ -212,6 +212,7 @@ var AgregarEmpleadoAjax = function (opcion) {
             //Response text desde backend
             console.log(xmlHttp.responseText);
             CargarTablaEmpleados();
+            CargarFormulario();
         }
     };
 };

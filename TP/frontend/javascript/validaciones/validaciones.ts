@@ -274,6 +274,7 @@ const AgregarEmpleadoAjax = (opcion?:string) =>
             //Response text desde backend
             console.log(xmlHttp.responseText);
             CargarTablaEmpleados();
+            CargarFormulario(); 
         }
     }
 }
