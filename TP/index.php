@@ -1,9 +1,9 @@
 <?php
 
 // include_once __DIR__ . './backend/validarSesion.php';
-require_once __DIR__ . './backend/interfaces.php';
-include_once __DIR__ . './backend/fabrica.php';
-include_once __DIR__ . './backend/entidades/empleado.php';
+require_once __DIR__ . '/backend/interfaces.php';
+include_once __DIR__ . '/backend/fabrica.php';
+include_once __DIR__ . '/backend/entidades/empleado.php';
 
 //$apellido, $nombre, $dni, $sexo, $legajo, $sueldo, $turno
 

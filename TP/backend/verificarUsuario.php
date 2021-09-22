@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once __DIR__ . './fabrica.php';
+require_once __DIR__ . '/fabrica.php';
 
 /*
 El formulario de la pagina login.html, establecer el valor del “action” en

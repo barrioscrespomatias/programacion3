@@ -1,6 +1,6 @@
 <?php
 
-include_once __DIR__ . './persona.php';
+include_once __DIR__ . '/persona.php';
 
 
 class Empleado extends Persona

@@ -1,7 +1,7 @@
 <?php
 
-include_once __DIR__ . './interfaces.php';
-include_once __DIR__ . './entidades/empleado.php';
+include_once __DIR__ . '/interfaces.php';
+include_once __DIR__ . '/entidades/empleado.php';
 
 class Fabrica implements IArchivo
 {
@@ -227,7 +227,7 @@ class Fabrica implements IArchivo
 
     public function CargarTablaEmpleados()
     {
-        ob_start();    
+        $ob = ob_start();    
         ?>   
     
         <h2>Listado de empleados</h2>            
@@ -278,8 +278,7 @@ class Fabrica implements IArchivo
 
             <?php
             $table = ob_get_clean();
-            ob_flush();
-
+            $ob = ob_flush();
             return $table;
     }
 
@@ -430,7 +429,7 @@ class Fabrica implements IArchivo
                 
         <?php
         $form = ob_get_clean();
-        ob_flush();
+        $ob = ob_flush();
         return $form;
     }
 }

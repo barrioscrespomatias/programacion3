@@ -1,7 +1,7 @@
 <?php
 
-require_once __DIR__ . './entidades/empleado.php';
-require_once __DIR__ . './fabrica.php';
+require_once __DIR__ . '/entidades/empleado.php';
+require_once __DIR__ . '/fabrica.php';
 
 /**
  * Desde administracionAjax principalmente se cargan los formularios y la tabla de empleados

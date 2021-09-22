@@ -1,7 +1,7 @@
 <?php
 
-require_once __DIR__ . './entidades/empleado.php';
-require_once __DIR__ . './fabrica.php';
+require_once __DIR__ . '/entidades/empleado.php';
+require_once __DIR__ . '/fabrica.php';
 
 $fabrica = new Fabrica('La fabriquita v.0.1');
 $fabrica->SetCantidadMaxima(7);

@@ -1,7 +1,7 @@
 <?php
 
-include_once __DIR__ . './fabrica.php';
-include_once __DIR__ . './entidades/empleado.php';
+include_once __DIR__ . '/fabrica.php';
+include_once __DIR__ . '/entidades/empleado.php';
 
 $fabrica = new Fabrica('Fábrica auxiliar');
 $fabrica->SetCantidadMaxima(7);
