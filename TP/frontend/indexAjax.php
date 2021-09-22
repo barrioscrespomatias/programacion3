@@ -27,12 +27,18 @@ $titulo = 'Barrios Crespo Matías';
 
 </head>
 
+<header>          
+    <?php include_once '../components/navBar.php'; ?>
+</header>
+
 <body>    
     <div class="row animate__animated animate__bounce">
         <h2 class="col-md-12 text-center"><?php echo $titulo; ?></h2>
         <div id="divFormlario" class="col-md-4 "></div>
         <div id="divTablaEmpleados" class="col-md-8"></div>
-        <div id="divLinks" class="col-md-8"></div>
+        <div id="divLinks" class="col-md-8">
+            <a href="../index.php"><h2 class="m-3">Ir al listado</h2></a>
+        </div>
     </div>
 
     <!-- custom validations -->

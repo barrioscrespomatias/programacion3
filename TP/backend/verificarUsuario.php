@@ -41,7 +41,7 @@ $exist = $fabrica->BuscarEmpleadoPorDniApellido($txtDni,$txtApellido);
 if($exist != null)
 {
     $_SESSION['DNIEmpleado'] = $txtDni;
-    header('Location: ./mostrar.php');
+    header('Location: ../frontend/indexAjax.php');
 }
     
 else
