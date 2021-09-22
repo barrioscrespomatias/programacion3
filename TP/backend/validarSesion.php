@@ -7,6 +7,9 @@ En el caso de no existir, redireccionar hacia login.html.
 */
 
 if(! isset($_SESSION['DNIEmpleado'] ))
-    header('Location: ../frontend/login.html');
+{
+    header('Location: ../frontend/login.html');        
+}
+    
 
 

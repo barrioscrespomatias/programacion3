@@ -90,6 +90,8 @@ $fabrica->AgregarEmpleado($newEmpleado);
 $fabrica->GuardarEnArchivo('./archivos/empleados.txt');
 $cantidadActual = $fabrica->GetCantidadEmpleados();
 
+//que la opcion sea null significa que NO se hace por ajax
+//el valor de opcion solo es cargado por ajax.
 if($opcion === null)
 {
     if ($cantidadActual > $cantidadPrevia) 

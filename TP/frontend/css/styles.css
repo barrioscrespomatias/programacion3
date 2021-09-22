@@ -1,5 +1,6 @@
 body{
-    background-color: #F0F8FF;
+    /* background-color: #F0F8FF; */
+    background-color: white;
 }
 
 /* span error index.html */
@@ -11,6 +12,10 @@ body{
 .center {
     margin-left: auto;
     margin-right: auto;
-  }
+}
+
+.card{
+    border: solid 1px;
+}
 
 

@@ -1,6 +1,5 @@
-Pato-Lucas-1000003-M-103-8500-1-./fotos/1000003-Pato.jpg
-Taz-Mania-1000000-M-100-10000-3-./fotos/1000000-Taz.jpg
-Corre-Caminos-1000001-M-101-8000-1-./fotos/1000001-Corre.jpg
-Conejo-Bugs-1000002-M-102-8000-1-./fotos/1000002-Conejo.jpg
-Oso-Pooh-1000004-M-104-9500-1-./fotos/1000004-Oso.jpg
-Alecsandre-Pato-1000005-M-105-9500-1-./fotos/1000005-Alecsandre.jpg
+Pato-Lucas-1000001-M-101-10000-3-./fotos/1000001-Pato.jpg
+Conejo-Bugs-1000000-M-100-8000-1-./fotos/1000000-Conejo.jpg
+Taz-Mania-1000002-F-102-10500-3-./fotos/1000002-Taz.jpg
+Corre-Caminos-1000003-F-103-10000-3-./fotos/1000003-Corre.jpg
+Gato-Silvestre-1000004-M-104-10000-1-./fotos/1000004-Gato.png
