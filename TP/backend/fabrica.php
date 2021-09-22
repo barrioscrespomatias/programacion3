@@ -227,7 +227,7 @@ class Fabrica implements IArchivo
 
     public function CargarTablaEmpleados()
     {
-        $ob = ob_start();    
+        ob_start();    
         ?>   
     
         <h2>Listado de empleados</h2>            
@@ -278,7 +278,7 @@ class Fabrica implements IArchivo
 
             <?php
             $table = ob_get_clean();
-            $ob = ob_flush();
+            if(ob_get_level() > 0) {ob_flush();}            
             return $table;
     }
 
@@ -429,7 +429,7 @@ class Fabrica implements IArchivo
                 
         <?php
         $form = ob_get_clean();
-        $ob = ob_flush();
+        if(ob_get_level() > 0) {ob_flush();}
         return $form;
     }
 }
