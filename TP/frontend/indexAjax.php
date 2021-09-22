@@ -1,6 +1,6 @@
 <?php
 session_start();
-// include_once __DIR__ . '/../backend/validarSesion.php';
+include_once __DIR__ . '/../backend/validarSesion.php';
 include_once '../backend/fabrica.php';
 
 $dniEmpleadoModificar = isset($_POST['inputHidden']) ? $_POST['inputHidden'] : null;
@@ -38,6 +38,7 @@ $titulo = 'Barrios Crespo Matías';
         <div id="divTablaEmpleados" class="col-md-8"></div>
         <div id="divLinks" class="col-md-8">
             <a href="../index.php"><h2 class="m-3">Ir al listado</h2></a>
+            <a href="../backend/cerrarSesion.php"><h2 class="m-3">Cerrar Sesión</h2></a>
         </div>
     </div>
 

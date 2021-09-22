@@ -7,14 +7,11 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                <a class="nav-link active" aria-current="page" href="./frontend/login.html">Iniciar sesión</a>
-                </li>
-                <li class="nav-item">
-                <a class="nav-link" href="#">Registrate</a>
-                </li>               
+                <a class="nav-link active" aria-current="page" href="./frontend/indexAjax.php">Backoffice</a>
+                </li>                          
                 <li class="nav-item">
                 <a class="nav-link" href="#">Nosotros</a>
-                </li>               
+                </li>
             </ul>
             <form class="d-flex">
                 <input class="form-control me-2" type="search" placeholder="escribí tu búsqueda..." aria-label="Search">

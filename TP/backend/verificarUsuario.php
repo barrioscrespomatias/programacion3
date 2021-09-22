@@ -1,7 +1,6 @@
 <?php
 session_start();
 require_once __DIR__ . '/fabrica.php';
-
 /*
 El formulario de la pagina login.html, establecer el valor del “action” en
 ‘backend/verificarUsuario.php’.
@@ -13,24 +12,7 @@ volver a login.html.
 Si se encuentra al empleado, se deberá redireccionar hacia mostrar.php.
 Nota: Para realizar el direccionamiento utilizar la función header. Ver funcionamiento en
 http://php.net/manual/es/function.header.php
-
 */
-?>
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-  <link rel="stylesheet" href="../frontend/css/styles.css">
-  <title>Verificar Usuario</title>
-
-</head>
-<body>
-
-<?php
 
 $fabrica = new Fabrica('La fábrica v.0.1.0');
 $fabrica->TraerDeArchivo('./archivos/empleados.txt');
@@ -41,7 +23,7 @@ $exist = $fabrica->BuscarEmpleadoPorDniApellido($txtDni,$txtApellido);
 if($exist != null)
 {
     $_SESSION['DNIEmpleado'] = $txtDni;
-    header('Location: ../frontend/indexAjax.php');
+    header("Location: ../frontend/indexAjax.php");
 }
     
 else

@@ -1,5 +1,5 @@
 Pato-Lucas-1000001-M-101-10000-3-./fotos/1000001-Pato.jpg
 Conejo-Bugs-1000000-M-100-8000-1-./fotos/1000000-Conejo.jpg
 Taz-Mania-1000002-F-102-10500-3-./fotos/1000002-Taz.jpg
-Corre-Caminos-1000003-F-103-10000-3-./fotos/1000003-Corre.jpg
-Gato-Silvestre-1000004-M-104-10000-1-./fotos/1000004-Gato.png
+Gato-Silvestre-1000004-M-104-15000-2-./fotos/1000004-Gato.png
+Coyote-Tunes-1000003-M-103-10000-1-./fotos/1000003-Coyote.jpg
