@@ -1,0 +1,36 @@
+PARTE 1:
+Enviar (por POST) a la página nexo.php:
+*-accion => 'alta'
+*-nombre => 'su nombre'
+*-apellido => 'su apellido'
+*-legajo => 'su legajo'
+*-foto => 'imagen .png/jpg/etc'
+
+Recuperar los valores enviados y agregarlos al archivo ./archivos/alumnos.txt
+El formato que deberá tener cada registro es el siguiente:
+*- legajo - apellido - nombre - foto (el path)
+
+La foto guardarla en ./fotos y su nombre:
+*- legajo.extension
+
+PARTE 2:
+Enviar (por GET) a la página nexo.php:
+*-accion => 'listado'
+
+Recuperar el valor enviado y mostrar el contenido completo del archivo ./archivos/alumnos.txt
+Cada registro se mostrará:
+*- legajo - apellido - nombre - foto
+
+PARTE 3:
+
+Enviar (por POST) a la página nexo.php:
+*-accion => 'verificar'
+*-legajo => 'su legajo'
+
+Recuperar los valores enviados y buscar en el archivo ./archivos/alumnos.txt la existencia de un registro que coincida con el legajo recuperado.
+Si se encuentra:
+redirigir hacia la página 'principal.php'
+*- legajo - apellido - nombre - foto
+Si no se encuentra, mostrar el siguiente mensaje:
+'El alumno con legajo 'xxx' no se encuentra en el listado'
+Siendo 'xxx' el valor del legajo enviado por POST.

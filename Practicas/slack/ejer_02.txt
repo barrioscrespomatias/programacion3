@@ -1,0 +1,13 @@
+Agregar funcionalidad en nexo.php
+
+Si se encuentra el legajo, crear variables de sesión que guarden el legajo, el nombre y apellido del alumno.
+Luego, redirigir hacia principal.php
+
+Página principal.php:
+
+Muestra en un <h1> el legajo del alumno y
+en un <h2> el nombre y apellido del alumno logueado.
+
+Muestra el contenido completo del archivo ./archivos/alumnos.txt en una tabla.
+Cada registro se mostrará:
+*- legajo - apellido - nombre - foto (path)

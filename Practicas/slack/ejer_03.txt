@@ -1,0 +1,5 @@
+Agregar en principal.php una verificación de la sesión del usuario logueado:
+Si la sesión del usuario NO está activa:
+se deberá redirigir hacia la página de inicio.
+
+

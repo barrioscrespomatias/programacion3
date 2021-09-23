@@ -1,0 +1,3 @@
+- 100 - Gardel - Carlos - ./fotos/100.jpg
+- 101 - Gonzalez - Pedro - ./fotos/101.jpg
+- 102 - Aznar - Pedro - ./fotos/102.jpg
