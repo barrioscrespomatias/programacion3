@@ -1,0 +1,69 @@
+<?php
+include_once __DIR__ . '/clases/ProductoEnvasado.php';
+$tabla = isset($_GET['tabla']) ? $_GET['tabla'] : null;
+
+$objSalida = new stdClass();
+$objSalida->exito = false;
+$objSalida->mensaje = "No se ha podido traer los productos de la base de datos.";
+
+$listaProductosEnvasados =  ProductoEnvasado::Traer();
+
+    if ($tabla == 'mostrar') 
+    {
+        
+
+        ob_start();
+        ?>
+
+            <!-- codigoBarra,nombre,origen,precio -->
+            <table border="1px" >
+                <thead>               
+                    <tr>
+                        <th><h4>Cod. Barra</h4></th>
+                        <th><h4>Nombre</h4></th>
+                        <th><h4>Origen</h4></th>
+                        <th><h4>Precio</h4></th>
+                        <th><h4>Imagen</h4></th>
+                    </tr>                         
+                </thead>
+                <?php foreach ($listaProductosEnvasados as $producto) : ?>
+                    <!-- html incrustado en php -->
+                    <tbody>
+                        <tr>
+                            <td class="col-md-6">
+                                <span><?php echo $producto->codigoBarra; ?></span>
+                            </td>
+                            <td class="col-md-6">
+                                <span><?php echo $producto->nombre; ?></span>
+                            </td>
+                            <td class="col-md-6">
+                                <span><?php echo $producto->origen; ?></span>
+                            </td>
+                            <td class="col-md-6">
+                                <span><?php echo $producto->precio; ?></span>
+                            </td>
+                            <td class="col-md-2">
+                                <!-- <img src="../backend/<?php echo $producto->GetPathFoto(); ?>" alt="img_producto" height="90" width="90"> -->
+                            </td>                        
+                        </tr>
+                    <?php endforeach; ?>
+                    </tbody>
+            </table>
+
+            <?php
+            $table = ob_get_clean();
+            if (ob_get_level() > 0) {ob_flush();}
+
+            $objSalida->mensaje = $table;
+            $objSalida->exito = true;
+            
+    
+    }     
+    else 
+    {
+        $objSalida->mensaje = $listaProductosEnvasados;
+        $objSalida->exito = true;
+    }
+
+
+echo json_encode($objSalida);
