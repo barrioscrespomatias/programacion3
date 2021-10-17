@@ -44,7 +44,7 @@ $fabrica->TraerDeArchivo('./backend/archivos/empleados.txt');
     <div class="jumbotron jumbotron-fluid">
     <div class="container">
         <h1 class="display-4">Lista de empleados</h1>
-        <p class="lead">Personajes de looney toones que han trabajado en nuestra empresa.</p>
+        <p class="lead">Personajes de looney toones que forman parte de nuestra institución.</p>
     </div>
     </div>
 
@@ -55,9 +55,11 @@ $fabrica->TraerDeArchivo('./backend/archivos/empleados.txt');
                     <div class="card mt-5 mb-5" style="width: 200px; height: 400px">
                         <img src="./backend/<?php echo $empleado->GetPathFoto(); ?>" alt="..." width="100%" height="100%">
                         <div class="card-body">
-                            <h5 class="card-title"><?php echo  $empleado->GetApellido() . '-' . $empleado->GetNombre(); ?></h5>
+                            <h4 class="card-title"><?php echo  $empleado->GetApellido() . '-' . $empleado->GetNombre(); ?></h4>
+                            <h5 class="card-text"><?php echo 'DNI '. $empleado->GetDni(); ?></h5>
                             <p class="card-text"><?php echo 'Sueldo $'. $empleado->GetSueldo(); ?></p>
-                            <a href="#" class="btn btn-primary">Ver más info</a>
+                            <!-- <a href="#" class="btn btn-primary">Ver más info</a> -->
+                            
                         </div>
                     </div>
                 </div>

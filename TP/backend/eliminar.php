@@ -51,8 +51,8 @@ $empleadoAEliminar = $fabrica->BuscarEmpleadoPorLegajo($txtLegajo);
 ?>
 
 <?php if ($txtLegajoAjax == null): ?>
-    <a href="./mostrar.php">Go to Mostrar.php</a>
-    <a href="../frontend/index.html">Go to Index.html</a>
+    <a href="./mostrar.php">Ir a MOSTRAR</a>
+    <a href="../frontend/index.php">Ir al INDEX</a>
 <?php endif; ?>
 
 

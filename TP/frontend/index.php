@@ -3,6 +3,7 @@ session_start();
 include_once '../backend/fabrica.php';
 
 
+
 $dniEmpleadoModificar = isset($_POST['inputHidden']) ? $_POST['inputHidden'] : null;
 
 $titulo = 'Alta de empleados';
@@ -67,7 +68,7 @@ if($dniEmpleadoModificar!=null)
     <div class="container d-flex justify-content-lg-center">        
         
         <table class="center">
-            <form action="../backend/administracion.php" method="POST" id="altaForm" enctype="multipart/form-data" >
+            <form action="../backend/administracion.php?pagina=ajax" method="POST" id="altaForm" enctype="multipart/form-data" >
                 <tbody>
                     <tr>
                         <td>

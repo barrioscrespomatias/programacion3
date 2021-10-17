@@ -3,6 +3,8 @@
 require_once __DIR__ . '/entidades/empleado.php';
 require_once __DIR__ . '/fabrica.php';
 
+$pagina = isset($_GET['pagina']) ? $_GET['pagina'] : null;
+
 $fabrica = new Fabrica('La fabriquita v.0.1');
 $fabrica->SetCantidadMaxima(7);
 
@@ -97,17 +99,17 @@ if($opcion === null)
     if ($cantidadActual > $cantidadPrevia) 
     {
         echo '<h3>Empleado agregado con éxito!</h3>';
-        echo '<a href="./mostrar.php">Go to Mostrar.php</a>';
+        echo '<a href="./mostrar.php">Ir a MOSTRAR</a>';
     }
     else if($modificado) 
     {
         echo '<h3>Empleado modificado con éxito!</h3>';
-        echo '<a href="./mostrar.php">Go to Mostrar.php</a>';    
+        echo '<a href="./mostrar.php">Ir a MOSTRAR</a>';    
     }
     else
     {
         echo '<h3>Ocurrió un problema al agregar al empleado</h3>';
-        echo '<a href="../frontend/index.html">Go to Index.html</a>';
+        echo '<a href="../frontend/index.php">Ir al INDEX</a>';
     }
 }
 else if($opcion === 'altaAjax') 

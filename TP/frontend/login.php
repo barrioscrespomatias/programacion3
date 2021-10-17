@@ -1,3 +1,10 @@
+<?php
+$pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 'ajax';
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,7 +25,7 @@
 <body>
   <div class="container ">
     <table class="center">
-      <form action="../backend/verificarUsuario.php" method="POST">
+      <form action="../backend/verificarUsuario.php?pagina=<?php echo $pagina?>" method="POST">
         <tbody>
           <tr>
             <td>

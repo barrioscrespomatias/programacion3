@@ -20,9 +20,15 @@ $txtDni = isset($_POST['txtDni']) ? $_POST['txtDni'] : null;
 $txtApellido = isset($_POST['txtApellido']) ? $_POST['txtApellido'] : null;
 $exist = $fabrica->BuscarEmpleadoPorDniApellido($txtDni,$txtApellido);
 
+$pagina = isset($_GET['pagina']) ? $_GET['pagina'] : null;
+
 if($exist != null)
 {
+
     $_SESSION['DNIEmpleado'] = $txtDni;
+    if($pagina=="sincrona")
+    header("Location: ./mostrar.php");
+    else if($pagina=="ajax")
     header("Location: ../frontend/indexAjax.php");
 }
     
