@@ -35,7 +35,7 @@ if($exist != null)
 else
     {
         echo '<h2>Error al obtener el usuario</h2>';
-        echo "<a href='../frontend/index.html'>Volver al Index.html</a>";
+        echo "<a href='../index.php'>Volver al INDEX</a>";
     }
 ?>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"

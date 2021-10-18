@@ -82,15 +82,18 @@ if($file !== null)
 }
 
 
+if($upload)
+{
+    //Agregar empleado en archivo
+    $newEmpleado = new Empleado($apellido, $nombre, $dni, $sexo, $legajo, $sueldo, $turno);
+    //Guardar el path del empleado
+    $newEmpleado->SetPathFoto($destinoFinal);
+    
+    $fabrica->AgregarEmpleado($newEmpleado);
+    $fabrica->GuardarEnArchivo('./archivos/empleados.txt');
+    $cantidadActual = $fabrica->GetCantidadEmpleados();
 
-//Agregar empleado en archivo
-$newEmpleado = new Empleado($apellido, $nombre, $dni, $sexo, $legajo, $sueldo, $turno);
-//Guardar el path del empleado
-$newEmpleado->SetPathFoto($destinoFinal);
-
-$fabrica->AgregarEmpleado($newEmpleado);
-$fabrica->GuardarEnArchivo('./archivos/empleados.txt');
-$cantidadActual = $fabrica->GetCantidadEmpleados();
+}
 
 //que la opcion sea null significa que NO se hace por ajax
 //el valor de opcion solo es cargado por ajax.
