@@ -1,6 +1,6 @@
 <?php
 
-include_once __DIR__ . '/backend/validarSesionAjax.php';
+include_once __DIR__ . '/backend/validarSesionPrincipal.php';
 require_once __DIR__ . '/backend/interfaces.php';
 include_once __DIR__ . '/backend/fabrica.php';
 include_once __DIR__ . '/backend/entidades/empleado.php';
