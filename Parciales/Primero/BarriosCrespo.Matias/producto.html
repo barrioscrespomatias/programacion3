@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Primer Parcial</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- bootstrap 4 -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+
+  <!-- AGREGAR ARCHIVOS JS AQUI -->
+
+</head>
+
+<body style="background-color:rgb(71, 3, 3)">
+ <br>
+  <div class="container" style="background-color:lightblue">
+    <br>
+    <h2 style="background-color:rgb(59, 5, 129);color:rgb(217, 217, 221)">Apellido y nombre del alumno</h2>
+
+    <h4>ABM - Productos (JSON - BD sin foto) - Parte 1 - Parte 2</h4>
+
+      <table class="table table" style="width:95%">
+        <tr>
+          <td style="width:50%">
+            <table class="table table-bordered table-hover" style="background-color:rgb(141, 186, 219)">
+              <tr>
+                <td><label class="col control-label">ID</label></td>
+                <td><input type="text" id="idProducto" readonly/></td>
+              </tr>
+              <tr>
+                <td><label class="col control-label">Código de barra</label></td>
+                <td><input type="text" id="codigoBarra" /></td>
+              </tr>
+              <tr>
+                <td><label class="col control-label">Nombre</label></td>
+                <td><input type="text" id="nombre" /></td>
+              </tr>
+              <tr>
+                <td><label class="col control-label">Origen</label></td>
+                <td><select id="cboOrigen" style="max-width:190px;min-width:180px" > 
+                    <option>Argentina</option>
+                    <option>Brasil</option>
+                    <option>Uruguay</option>
+                    <option>Colombia</option>
+                    <option>Venezuela</option>
+                  </select>
+                </td>
+              </tr>
+              <tr>
+                <td><label class="col control-label">Precio</label></td>
+                <td><input type="text" id="precio" /></td>
+              </tr>
+              <tr>
+                <td colspan="2" class="col">
+                  <input type="button" value="Agregar JSON" id="btn-agregar" class="btn btn-success" onclick="PrimerParcial.Manejadora.AgregarProductoJSON()"  />
+                  <input type="button" value="Mostrar JSON" class="btn btn-info" onclick="PrimerParcial.Manejadora.MostrarProductosJSON()" />
+                  <input type="button" value="Verificar JSON" class="btn btn-light" onclick="PrimerParcial.Manejadora.VerificarProductoJSON()" />
+                  <input type="button" value="Mostrar COOKIE" class="btn btn-dark" onclick="PrimerParcial.Manejadora.MostrarInfoCookie()" />
+                  <input type="button" value="Agregar sin foto" class="btn btn-primary" onclick="PrimerParcial.Manejadora.AgregarProductoSinFoto()" />
+                  <input type="button" value="Mostrar BD" class="btn btn-danger" onclick="PrimerParcial.Manejadora.MostrarProductosEnvasados()" />
+                  <input type="button" value="Modificar sin foto" class="btn btn-light" onclick="PrimerParcial.Manejadora.ModificarSinFoto()" />
+                </td>
+              </tr>
+            </table>
+          </td>
+          <td>
+            <div class="" style="background-color:lavenderblush;">
+              <div id="divInfo"></div>
+              <div id="divTabla">
+                tabla aqu&iacute;...
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+
+    <input type="hidden" id="hdnIdModificacion"><!-- PARA MODIFICAR -->
+    <div id="divSpinner" style="display:none;position:absolute"><img id="imgSpinner" src="./BACKEND/gif-load.gif" /></div><!-- PARA EL SPINNER -->
+  </div>
+
+<script type="text/javascript" src="./frontend/clases/app.js"></script>
+<script>
+  var instanciaManejadora = new PrimerParcial.Manejadora();
+</script>
+</body>
+
+</html>

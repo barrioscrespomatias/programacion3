@@ -1,0 +1,2 @@
+oregano - jujuy - 17 - 127 - 500 - ./productosBorrados/17.oregano.borrado.165440.jpg
+papas - salta - 18 - 128 - 250 - ./productosBorrados/18.papas.borrado.170748.jpg
