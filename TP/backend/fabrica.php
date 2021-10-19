@@ -225,7 +225,7 @@ class Fabrica implements IArchivo
         fclose($file);
     }
 
-    public function CargarTablaEmpleados()
+    public function CargarTablaEmpleados($botones=true)
     {
         ob_start();    
         ?>   
@@ -233,11 +233,13 @@ class Fabrica implements IArchivo
         <h2>Listado de empleados</h2>            
             <table>
                 <thead>
+                <?php if($botones) : ?>
                 <tr>
                     <th class="">
                     <h4>Info</h4>
                     </th>
                 </tr>
+                <?php endif; ?>
                 <!-- <tr>
                     <td>
                     <hr>
@@ -254,13 +256,14 @@ class Fabrica implements IArchivo
                     <td class="col-md-2">              
                         <img class="imgBackGroundTransparent" src="../backend/<?php echo $newEmpleado->GetPathFoto(); ?>" alt="img_empleado" height="90" width="90">
                     </td>
-                    <td class="col-md-1">              
-                        
+                    <?php if($botones) : ?>
+                    <td class="col-md-1">                                      
                         <input type="button" class = "btn btn-danger btn-sm" value="Eliminar" onclick="AdministrarEliminar(<?php echo $newEmpleado->GetLegajo();?>)">
                     </td>
                     <td class="col-md-1">
                         <input type="button" class = "btn btn-primary btn-sm" value="Modificar" onclick="AdministrarModificar(<?php echo $newEmpleado->GetDni();?>)">
                     </td>
+                    <?php endif; ?>   
                     </tr>        
                     <?php endforeach; ?>          
                     <tr>

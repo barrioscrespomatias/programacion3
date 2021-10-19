@@ -1,3 +1,4 @@
-Conejo-Bugs-1000000-M-100-8000-1-./fotos/1000000-Conejo.jpg
-Pato-Lucas-1000001-M-101-10000-3-./fotos/1000001-Pato.jpg
-Coyote-Toones-1000002-M-102-10000-1-./fotos/1000002-Coyote.jpg
+Conejo-Bugs-1000000-M-100-9500-2-./fotos/1000000-Conejo.jpg
+Pato-Lucas-1000001-M-101-11000-2-./fotos/1000001-Pato.jpg
+Taz-Mania-1000002-M-102-8500-2-./fotos/1000002-Taz.jpg
+Coyote-Toones-1000003-M-103-10000-3-./fotos/1000003-Coyote.jpg
