@@ -7,10 +7,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="./frontend/indexAjax.php">Back Ajax</a>
+                    <a class="nav-link active" aria-current="page" href="./frontend/indexAjax.php">Versión Ajax</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="./frontend/index.php">Back sincrónico</a>
+                    <a class="nav-link active" aria-current="page" href="./frontend/index.php">Versión Sincrónica</a>
                 </li>
             </ul>
             <!-- <form class="d-flex">

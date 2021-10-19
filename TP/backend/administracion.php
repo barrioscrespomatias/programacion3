@@ -84,6 +84,8 @@ if($file !== null)
 
 if($upload)
 {
+    if($apellido !== null && $nombre !== null && $dni !== null && $sexo !== null && $legajo !== null && $sueldo !== null && $turno !== null)
+    {
     //Agregar empleado en archivo
     $newEmpleado = new Empleado($apellido, $nombre, $dni, $sexo, $legajo, $sueldo, $turno);
     //Guardar el path del empleado
@@ -92,6 +94,9 @@ if($upload)
     $fabrica->AgregarEmpleado($newEmpleado);
     $fabrica->GuardarEnArchivo('./archivos/empleados.txt');
     $cantidadActual = $fabrica->GetCantidadEmpleados();
+
+    }
+   
 
 }
 
