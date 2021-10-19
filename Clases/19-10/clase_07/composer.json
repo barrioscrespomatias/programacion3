@@ -1,0 +1,14 @@
+{
+    "name": "proyecto/prueba",
+    "description": "es una prueba",
+    "require": {        
+        "mpdf/mpdf": "v8.0.13"          
+    },
+    "authors": [
+        {
+            "name": "Matías B Crespo",
+            "email": "matisfd@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev"
+}
