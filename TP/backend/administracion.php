@@ -63,8 +63,8 @@ if($file !== null)
                 switch($extension)
                 {
                     case 'jpg':
-                    case 'bmp':
-                    case 'gif':
+                    // case 'bmp':
+                    // case 'gif':
                     case 'png':
                     case 'jpeg':
                         if(move_uploaded_file($tmpName,$destinoFinal))
@@ -73,7 +73,7 @@ if($file !== null)
                             if($opcion === 'subirFotoAjax')
                             {
                                 echo 'Foto subida con éxito!';
-                            }
+                            }                            
                         }
                 }
             }

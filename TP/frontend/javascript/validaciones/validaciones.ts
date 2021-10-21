@@ -21,16 +21,19 @@ const AdministrarValidaciones = (comunicacion:string) => {
         console.log('Error al validar los campos');
     }
 
-    switch(comunicacion)
+    if(validado)
     {
-        case "alta":
-            //método para comunicarse mediante ajaxArchivos
-            AgregarEmpleadoAjax("alta");
-            break;
-        case "modificar":            
-            //método para comunicarse mediante ajax   
-            AgregarEmpleadoAjax("modificar");            
-            break;
+        switch(comunicacion)
+        {            
+            case "alta":
+                //método para comunicarse mediante ajaxArchivos
+                AgregarEmpleadoAjax("alta");
+                break;
+            case "modificar":            
+                //método para comunicarse mediante ajax   
+                AgregarEmpleadoAjax("modificar");            
+                break;
+        }
     }
 
 }
@@ -144,8 +147,8 @@ const VerificarValidacionesLogin = (): boolean => {
     const sueldoInt: number = parseInt((<HTMLInputElement>document.getElementById('txtSueldo')).value, 10);
     const rangoSueldo = ValidarRangoNumerico(sueldoInt, 8000, sueldoMaximo);
 
-    // if(foto===false)
-    // alert('La foto no se ha cargado');
+    if(foto===false)
+    alert('La foto no se ha cargado');
 
     // validando los campos
     const validado =
@@ -259,7 +262,7 @@ const AgregarEmpleadoAjax = (opcion?:string) =>
     const turno: string = ObtenerTurnoSeleccionado();    
     const file: any = (<HTMLInputElement>document.getElementById('txtFoto'));
 
-    if (VerificarValidacionesLogin()) {
+    // if (VerificarValidacionesLogin()) {
         // Archivo subido por Ajax
         const form: FormData = new FormData();
         form.append('txtDni', dni);
@@ -299,7 +302,7 @@ const AgregarEmpleadoAjax = (opcion?:string) =>
             }
         }
 
-    }   
+    // }   
 
 }
 

@@ -30,6 +30,7 @@ $mpdf->setFooter("{DATE Y}|matiasbarrioscrespo.000webhostapp.com|{PAGENO}");
 
 
 $fabrica = new Fabrica('La fabriquita v.0.3');
+$fabrica->SetCantidadMaxima(7);
 
 $fabrica->TraerDeArchivo('../backend/archivos/empleados.txt');
 $listaEmpleados = $fabrica->GetEmpleados();

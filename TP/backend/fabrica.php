@@ -254,7 +254,8 @@ class Fabrica implements IArchivo
                         <span><?php echo $newEmpleado->ToString(); ?></span>              
                     </td>
                     <td class="col-md-2">              
-                        <img class="imgBackGroundTransparent" src="../backend/<?php echo $newEmpleado->GetPathFoto(); ?>" alt="img_empleado" height="90" width="90">
+                        <img class="imgBackGroundTransparent" src="../backend/<?php echo $newEmpleado->GetPathFoto(); ?>" alt="img_empleado" height="90" width="90">                       
+                        
                     </td>
                     <?php if($botones) : ?>
                     <td class="col-md-1">                                      

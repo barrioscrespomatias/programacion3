@@ -1,5 +1,6 @@
-Conejo-Bugs-1000000-M-100-9500-2-./fotos/1000000-Conejo.jpg
 Pato-Lucas-1000001-M-101-11000-2-./fotos/1000001-Pato.jpg
 Taz-Mania-1000002-M-102-8500-2-./fotos/1000002-Taz.jpg
 Coyote-Toones-1000003-M-103-10000-3-./fotos/1000003-Coyote.jpg
-Corre-Caminos-1000004-M-104-15000-3-./fotos/1000004-Corre.jpg
+Conejo-Bugs-1000000-M-100-9500-2-./fotos/1000000-Conejo.jpg
+Corre-Caminos-1000004-M-104-15000-2-./fotos/1000004-Corre.jpg
+Todos-Toones-1000005-M-105-25000-3-./fotos/1000005-Todos.png
