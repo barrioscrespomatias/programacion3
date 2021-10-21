@@ -10,10 +10,10 @@ $url = getcwd();
 if($dni === null )
 {
     //localhost
-    // header('Location: /Programacion3/TP/frontend/login.php');
+    header('Location: /Programacion3/TP/frontend/login.php');
 
     //servidores
-    header('Location: /frontend/login.php');
+    // header('Location: /frontend/login.php');
 }
 
    

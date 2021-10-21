@@ -144,8 +144,8 @@ const VerificarValidacionesLogin = (): boolean => {
     const sueldoInt: number = parseInt((<HTMLInputElement>document.getElementById('txtSueldo')).value, 10);
     const rangoSueldo = ValidarRangoNumerico(sueldoInt, 8000, sueldoMaximo);
 
-    if(foto===false)
-    alert('La foto no se ha cargado');
+    // if(foto===false)
+    // alert('La foto no se ha cargado');
 
     // validando los campos
     const validado =
@@ -259,47 +259,48 @@ const AgregarEmpleadoAjax = (opcion?:string) =>
     const turno: string = ObtenerTurnoSeleccionado();    
     const file: any = (<HTMLInputElement>document.getElementById('txtFoto'));
 
-    // Archivo subido por Ajax
-    const form : FormData = new FormData();
-    form.append('txtDni', dni);
-    form.append('txtApellido', apellido);
-    form.append('txtNombre', nombre);
-    form.append('cboSexo', sexo);
-    form.append('txtLegajo', legajo);
-    form.append('txtSueldo', sueldo);
-    form.append('rdoTurno', turno);
-    form.append('txtFoto', file.files[0]);
+    if (VerificarValidacionesLogin()) {
+        // Archivo subido por Ajax
+        const form: FormData = new FormData();
+        form.append('txtDni', dni);
+        form.append('txtApellido', apellido);
+        form.append('txtNombre', nombre);
+        form.append('cboSexo', sexo);
+        form.append('txtLegajo', legajo);
+        form.append('txtSueldo', sueldo);
+        form.append('rdoTurno', turno);
+        form.append('txtFoto', file.files[0]);
 
-    /**
-     *las variables 'opcion' simplemente hacer que desde el backend se retorne un mensaje ante cada situación. 
-     * Mensaje para modificar o mensaje para un alta.
-     * Si es utilizado el hdnModificar
-     */
+        /**
+         *las variables 'opcion' simplemente hacer que desde el backend se retorne un mensaje ante cada situación. 
+         * Mensaje para modificar o mensaje para un alta.
+         * Si es utilizado el hdnModificar
+         */
 
-    if(opcion === 'alta')
-    {
-        form.append('opcion','altaAjax');
-    }
-    else
-    {
-        form.append('opcion','modificarAjax');
-        form.append('hdnModificar','modificar');
-    }    
-    
-    
-    xmlHttp.open('POST','../backend/administracion.php',true);
-    xmlHttp.setRequestHeader('enctype','multipart/form-data');
-    xmlHttp.send(form);
-    xmlHttp.onreadystatechange = () =>{
-        if(xmlHttp.readyState == 4 && xmlHttp.status == 200)
-        {
-            //Response text desde backend
-            //Acá se carga la respuesta por el alta o  la modificación.
-            console.log(xmlHttp.responseText);
-            CargarTablaEmpleados();
-            CargarFormulario();             
+        if (opcion === 'alta') {
+            form.append('opcion', 'altaAjax');
         }
-    }
+        else {
+            form.append('opcion', 'modificarAjax');
+            form.append('hdnModificar', 'modificar');
+        }
+
+
+        xmlHttp.open('POST', '../backend/administracion.php', true);
+        xmlHttp.setRequestHeader('enctype', 'multipart/form-data');
+        xmlHttp.send(form);
+        xmlHttp.onreadystatechange = () => {
+            if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+                //Response text desde backend
+                //Acá se carga la respuesta por el alta o  la modificación.
+                console.log(xmlHttp.responseText);
+                CargarTablaEmpleados();
+                CargarFormulario();
+            }
+        }
+
+    }   
+
 }
 
 
